@@ -1,6 +1,6 @@
-# SolidStart
+# CSView
 
-CSView is a Solid-Start based website, designed to give helpful utilities for CS:GO players.
+CSView is a Next based website, designed to give helpful utilities for CS:GO players.
 
 # Features
 
@@ -24,6 +24,8 @@ CSView has a large crosshair repository available to its users, allowing for qui
 
 ## Libraries
 
-• [Solid-Start](https://start.solidjs.com/getting-started/what-is-solidstart)<br>
-• [Solid](https://www.solidjs.com/)<br>
-• [csgostatsgg-scraper](https://github.com/claabs/csgostatsgg-scraper)<br>
+• [Next](https://nextjs.org/)<br>
+• [React](https://react.dev/)<br>
+• [Puppeteer](https://pptr.dev/)<br>
+• [Jquery](https://jquery.com/)<br>
+• [Axios](https://axios-http.com/)<br>
