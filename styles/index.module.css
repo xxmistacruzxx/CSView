@@ -1,0 +1,229 @@
+.bannerContainer {
+  width: 100%;
+  /* height: 550px; */
+  background-image: linear-gradient(
+      180deg,
+      transparent,
+      var(--background-color)
+    ),
+    url("/images/csgobanner.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: linear;
+}
+
+.bannerContainer > h2 {
+  padding-top: 30px;
+  margin: 0px;
+  margin-left: 40px;
+  font-size: 3em;
+  color: var(--text-color1);
+}
+
+.bannerContainer > p {
+  margin-left: 40px;
+  color: var(--text-color2);
+}
+
+.bannerContainer > div > h2 {
+  margin-left: 40px;
+  margin-top: 50px;
+  margin-bottom: 0;
+  font-size: 2em;
+  color: var(--text-color1);
+}
+
+.featureBoxesContainer {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.featureBoxesContainer > a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  max-width: 250px;
+  width: 100%;
+  height: 300px;
+  margin: 20px;
+  padding: 5px;
+  background-color: var(--background-color1);
+  border-radius: 40px;
+  box-shadow: 0px 10px 30px 0px black;
+  transition: transform 200ms ease;
+}
+
+.featureBoxesContainer > a:hover {
+  transform: translateY(-5px);
+}
+
+.featureBoxesContainer > a > img {
+  filter: var(--filter);
+  opacity: 0.7;
+  width: 40%;
+  margin-top: 20px;
+}
+
+.featureBoxesContainer > a > h3 {
+  color: var(--text-color1);
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+.featureBoxesContainer > a > p {
+  color: var(--text-color2);
+  margin-top: 0px;
+  text-align: center;
+}
+
+.features {
+  margin-top: 30px;
+}
+
+.features > div {
+  margin-left: 40px;
+  margin-right: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.features > div:nth-child(2n) > :nth-child(1) {
+  order: 2;
+}
+
+.features > div > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+}
+
+.features > div > div:nth-child(1) > h2 {
+  color: var(--text-color1);
+  font-size: 2em;
+  margin: 0px;
+}
+
+.features > div > div:nth-child(1) > p {
+  color: var(--text-color2);
+}
+
+.features > div > div:nth-child(1) > a {
+  color: var(--text-color1);
+  font-size: 1.5em;
+  text-decoration: none;
+  width: fit-content;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: var(--background-color1);
+  border-radius: 15px;
+  transition: all 200ms;
+}
+
+.features > div > div:nth-child(1) > a:hover {
+  transform: translateY(-5px);
+  background-color: var(--background-color2);
+}
+
+.features > div > div:nth-child(2) {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.features > div > div:nth-child(2) > img {
+  height: 300px;
+  aspect-ratio: 1/1;
+  filter: var(--filter);
+}
+
+#playerStatsLookupImage {
+  background: linear-gradient(to top, transparent 70%, var(--background-color)),
+    linear-gradient(to bottom, transparent 70%, var(--background-color)),
+    linear-gradient(to right, transparent 70%, var(--background-color)),
+    linear-gradient(to left, transparent 70%, var(--background-color)),
+    url("/images/dustbsite.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+#groupLookupImage {
+  background: linear-gradient(to top, transparent 70%, var(--background-color)),
+    linear-gradient(to bottom, transparent 70%, var(--background-color)),
+    linear-gradient(to right, transparent 70%, var(--background-color)),
+    linear-gradient(to left, transparent 70%, var(--background-color)),
+    url("/images/nukemap.png");
+  background-position: center;
+  background-size: cover;
+}
+
+#proMatchImage {
+  background: linear-gradient(to top, transparent 70%, var(--background-color)),
+    linear-gradient(to bottom, transparent 70%, var(--background-color)),
+    linear-gradient(to right, transparent 70%, var(--background-color)),
+    linear-gradient(to left, transparent 70%, var(--background-color)),
+    url("/images/proroom.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+#crosshairRepositoryImage {
+  background: linear-gradient(to top, transparent 70%, var(--background-color)),
+    linear-gradient(to bottom, transparent 70%, var(--background-color)),
+    linear-gradient(to right, transparent 70%, var(--background-color)),
+    linear-gradient(to left, transparent 70%, var(--background-color)),
+    url("/images/howl.avif");
+  background-position: center;
+  background-size: cover;
+}
+
+@media screen and (min-width: 601px) {
+  .features > div:nth-child(2n + 1) > div {
+    text-align: right;
+    align-items: end;
+  }
+
+  .features > div > div:nth-child(1) {
+    width: 40%;
+  }
+
+  .featureGraphic {
+    width: 50%;
+    padding: 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .features > div {
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+  .featureContent {
+    order: 2;
+    width: 100%;
+    align-items: center;
+  }
+  .featureContent > * {
+    text-align: center;
+  }
+
+  .featureGraphic {
+    order: 1;
+    width: 100%;
+  }
+
+  .featureGraphic > img {
+    height: auto;
+    width: 50%;
+  }
+
+  .featureBoxesContainer {
+    display: none;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}

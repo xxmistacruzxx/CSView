@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "paths": {
+      "~/*": [
+        "./*"
+      ],
+      "~/components/*" : [
+        "./components/*"
+      ],
+      "~/styles/*" : [
+        "./styles/*"
+      ],
+      "~/data/*" : [
+        "./data/*"
+      ]
+    }
+  }
+}

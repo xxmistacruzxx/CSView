@@ -1,0 +1,82 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 2%;
+  padding-right: 2%;
+  background-color: var(--background-color3);
+  border-bottom: solid 2px var(--background-color);
+}
+
+.navbar > a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar > a > img {
+  height: 32px;
+  width: 32px;
+  margin-right: 8px;
+}
+
+.navbar > a > h1 {
+  margin: 0px;
+  color: var(--text-color1);
+}
+
+.navbar > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.navbar > div > a {
+  margin-left: 10px;
+  padding: 10px;
+  color: var(--text-color1);
+
+  text-decoration: none;
+  text-decoration-skip-ink: auto;
+  position: relative;
+}
+
+.navbar > div > a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-color1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navbar > div > a:hover::after {
+  opacity: 1;
+}
+
+.navbar > div > a > img {
+  width: 1em;
+  aspect-ratio: 1/1;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 5px;
+  filter: var(--filter);
+}
+
+@media screen and (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .navbar > div {
+    justify-content: center;
+  }
+}

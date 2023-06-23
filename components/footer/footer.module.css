@@ -1,0 +1,138 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--background-color3);
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.seperator {
+  background-color: var(--background-color2);
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+#powered {
+  width: 30%;
+}
+
+.poweredSection > :first-child {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0px;
+  color: var(--text-color1);
+}
+
+.poweredSection > :first-child > p {
+  margin: 0px;
+  color: var(--text-color1);
+}
+
+.poweredSection > :first-child > a {
+  display: flex;
+  flex-direction: row;
+  color: var(--text-color1);
+  text-decoration: none;
+  transition: all 200ms;
+}
+
+.poweredSection > :first-child > a:hover {
+  transform: translateY(-2px);
+}
+
+.poweredSection > p {
+  color: var(--text-color2);
+}
+
+.poweredSection > p > a {
+  color: var(--text-color1);
+}
+
+#csgostats > :first-child > a > mark {
+  color: #4a90e2;
+  background-color: transparent;
+}
+
+#hltv > h2 > a > img {
+  width: 32px;
+  height: 32px;
+  margin-right: 1mm;
+}
+
+#developerContainer {
+  color: var(--text-color1);
+}
+
+#developer {
+  display: flex;
+  flex-direction: row;
+}
+
+#developer > img {
+  width: 80%;
+  max-width: 169px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#developerLinks {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#developerLinks > a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+}
+
+#developerLinks > a > img {
+  filter: var(--filter);
+  background-color: var(--text-color2);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 3px;
+  margin-right: 10px;
+  border: solid 1px var(--background-color);
+}
+
+#developerLinks > a > p {
+  color: var(--text-color1);
+}
+
+#developerInfo {
+  max-width: 400px;
+}
+
+@media screen and (max-width: 600px) {
+  .seperator {
+    display: none;
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+
+  #powered {
+    width: 100%;
+  }
+
+  #developerContainer {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  #developerInfo {
+    max-width: none;
+  }
+}

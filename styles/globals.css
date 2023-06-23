@@ -1,0 +1,23 @@
+:root {
+  --filter: invert(100%);
+  --background-color3: rgb(17, 17, 17);
+  --background-color: rgb(26, 26, 26);
+  --background-color1: rgb(37, 37, 37);
+  --background-color2: rgb(61, 61, 61);
+  --text-color1: rgb(255, 255, 255);
+  --text-color2: rgb(201, 201, 201);
+  --text-color3: rgb(146, 146, 146);
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-color);
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}

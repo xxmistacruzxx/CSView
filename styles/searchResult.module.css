@@ -1,0 +1,305 @@
+@keyframes grad {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  width: 150px;
+  height: 150px;
+
+  animation: spin 1s linear infinite;
+  border-radius: 50%;
+}
+
+.loading > :nth-child(1) {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+
+  width: 100%;
+  height: 50%;
+
+  background-color: var(--background-color3);
+}
+.loading > :nth-child(2) {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  /* background: radial-gradient(#e66465, #9198e5); */
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: grad 2s linear infinite;
+  border-radius: 50%;
+}
+.loading > :nth-child(3) {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  z-index: 3;
+
+  width: 90%;
+  height: 90%;
+
+  background-color: var(--background-color3);
+  border-radius: 50%;
+}
+
+#searchResultContainer {
+  margin-top: 30px;
+  padding: 2px;
+
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: grad 10s linear infinite;
+
+  border-radius: 30px;
+}
+
+#searchResult {
+  padding: 30px;
+
+  background-color: var(--background-color3);
+  border-radius: 30px;
+}
+
+#banner {
+  display: flex;
+  flex-direction: row;
+  color: var(--text-color1);
+}
+
+#banner > h3 {
+  margin: 0px;
+}
+
+#banner > p {
+  margin: 0px;
+}
+
+#user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  align-self: center;
+}
+
+#user img {
+  border-radius: 50%;
+}
+
+#user h2 {
+  margin-bottom: 0px;
+}
+
+#user p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#quickInfo {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+  margin-left: 20px;
+}
+
+#quickInfo > div {
+  margin-bottom: 20px;
+}
+
+#ranks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#ranks > :nth-child(1) {
+  margin-right: 10px;
+}
+
+#ranks > :nth-child(2) {
+  margin-left: 10px;
+}
+
+#quickStats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#quickStats h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+#quickStats p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#profileBody {
+  display: grid;
+  grid-template-columns: 48% 50%;
+  grid-template-rows: auto;
+  gap: 0px 2%;
+}
+
+#profileBody > div:nth-child(2n + 1) {
+  grid-column: 1/1;
+}
+
+#profileBody > div:nth-child(2n) {
+  grid-column: 2/2;
+}
+
+.statSection {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.statSection > h3 {
+  color: var(--text-color1);
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.statRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px;
+
+  background-color: var(--background-color1);
+  border-radius: 20px;
+}
+
+.statRow * {
+  margin: 0px;
+}
+
+.statRow > div {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+}
+
+.statRow > div > div {
+  margin-right: 20px;
+}
+
+.statRow > div > h4 {
+  color: var(--text-color3);
+}
+
+.statRow > div > p {
+  color: var(--text-color1);
+}
+
+#specificStats {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#entry {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#entry > h3 {
+  color: var(--text-color1);
+  margin: 0px;
+}
+
+#entry > div {
+  display: grid;
+  grid-template-rows: 33% 33% 33%;
+  grid-template-columns: 25% 25% 25% 25%;
+  background-color: var(--background-color1);
+  padding: 15px;
+  border-radius: 20px;
+  justify-items: center;
+  align-items: center;
+}
+
+#entry > div > div {
+  width: fit-content;
+}
+
+#played {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#played > h3 {
+  margin: 0px;
+  color: var(--text-color1);
+}
+
+#played > div {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color1);
+  padding: 15px;
+  border-radius: 20px;
+}
+
+#played > div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#played > div > div > div {
+  color: var(--text-color1);
+}
+
+@media screen and (max-width: 600px) {
+  #searchResultContainer {
+    width: 100%;
+  }
+  #banner {
+    flex-direction: column;
+  }
+  #quickInfo {
+    margin-left: 0px;
+  }
+
+  #ranks > div {
+    width: 45%;
+  }
+  #ranks > div > img {
+    width: 100%;
+  }
+
+  #profileBody {
+    display: flex;
+    flex-direction: column;
+  }
+}
