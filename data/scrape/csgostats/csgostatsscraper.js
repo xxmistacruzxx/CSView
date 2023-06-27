@@ -1,15 +1,28 @@
 import puppeteer from "puppeteer";
+import core from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 
 // main function to get all player data
 export async function getStats(accNumber) {
-  //   console.log("getting stats");
-  let data = {};
+  let browser;
 
-  const browser = await puppeteer.launch({ headless: "new" });
+  if (process.env.ENV === "DEV") {
+    browser = await puppeteer.launch({ headless: "new" });
+  } else {
+    browser = await core.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    });
+  }
+
   const page = await browser.newPage();
   await page.goto(`https://csgostats.gg/player/${accNumber}`);
   await page.setViewport({ width: 1080, height: 1024 });
 
+  let data = {};
   let temp;
   data["username"] = await getTextContent(page, await page.$("#player-name"));
   data["username"] = data["username"].trim();
@@ -35,6 +48,7 @@ export async function getStats(accNumber) {
   data["clutch"] = await getClutch(page);
   data["entry"] = await getEntry(page);
   data["played"] = await getPlayed(page);
+  await browser.close();
 
   console.log(`Server Side: ${JSON.stringify(data)}`);
   return data;

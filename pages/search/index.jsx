@@ -22,9 +22,12 @@ export default function Search() {
     <main>
       <Navbar />
       <div id={styles.searchContainer}>
-        <form id={styles.searchForm} onsubmit={onSearch}>
-          <div class={styles.inputContainer} id={styles.searchInputContainer}>
-            <label for="searchInput">Username/SteamID/URL</label>
+        <form id={styles.searchForm} onSubmit={onSearch}>
+          <div
+            className={styles.inputContainer}
+            id={styles.searchInputContainer}
+          >
+            <label htmlFor="searchInput">Username/SteamID/URL</label>
             <div id={styles.searchInput}>
               <input
                 id="searchInput"
@@ -34,8 +37,8 @@ export default function Search() {
               ></input>
             </div>
           </div>
-          <div class={styles.inputContainer}>
-            <label for="searchButton">Search</label>
+          <div className={styles.inputContainer}>
+            <label htmlFor="searchButton">Search</label>
             <div id={styles.searchButton}>
               <input
                 id="searchButton"

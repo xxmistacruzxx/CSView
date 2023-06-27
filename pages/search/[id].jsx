@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import $ from "jquery";
-import axios from "axios";
 
 import styles from "~/styles/search.module.css";
 import styles2 from "~/styles/searchResult.module.css";
@@ -33,6 +31,7 @@ export default function Search(props) {
     fetch(`/api/search/${props.id}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setData(data);
         setLoading(false);
       });
