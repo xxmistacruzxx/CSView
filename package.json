@@ -3,20 +3,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "dockerbuild": "docker build -t xxmistacruzxx/csview .",
+    "dockerstart": "docker run -p 3000:3000 xxmistacruzxx/csview"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^114.0.0",
     "axios": "^1.4.0",
     "jquery": "^3.7.0",
     "next": "latest",
-    "puppeteer-core": "^20.7.2",
+    "puppeteer": "^20.7.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
-  },
-  "devDependencies": {
-    "netlify-cli": "^15.6.0",
-    "puppeteer": "^20.7.3",
-    "vercel": "^30.2.3"
   }
 }

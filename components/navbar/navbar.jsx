@@ -10,23 +10,23 @@ export default function Navbar() {
       <div>
         <a href="/about">
           <img src="/images/info.svg" />
-          About
+          <p>About</p>
         </a>
         <a href="/crosshairs">
           <img src="/images/crosshair.svg" />
-          View Crosshairs
+          <p>View Crosshairs</p>
         </a>
         <a href="/matches">
           <img src="/images/trophy.svg" />
-          View Matches
+          <p>View Matches</p>
         </a>
         <a href="/multisearch">
           <img src="/images/group.svg" />
-          Search Game
+          <p>Search Game</p>
         </a>
         <a href="/search">
           <img src="/images/search.svg" style={{ rotate: "90deg" }} />
-          Search Player
+          <p>Search Player</p>
         </a>
       </div>
     </div>

@@ -37,6 +37,9 @@
 }
 
 .navbar > div > a {
+  display: flex;
+  flex-direction: row;
+
   margin-left: 10px;
   padding: 10px;
   color: var(--text-color1);
@@ -62,11 +65,13 @@
   opacity: 1;
 }
 
+.navbar > div > a > p {
+  margin: 0px;
+}
+
 .navbar > div > a > img {
   width: 1em;
   aspect-ratio: 1/1;
-  margin-top: auto;
-  margin-bottom: auto;
   margin-right: 5px;
   filter: var(--filter);
 }

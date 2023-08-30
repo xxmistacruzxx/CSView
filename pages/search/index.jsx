@@ -3,6 +3,7 @@ import $ from "jquery";
 import styles from "~/styles/search.module.css";
 import Navbar from "~/components/navbar/navbar.jsx";
 import Footer from "~/components/footer/footer.jsx";
+import Head from "next/head";
 
 export default function Search() {
   function onSearch(event) {
@@ -20,6 +21,9 @@ export default function Search() {
 
   return (
     <main>
+      <Head>
+        <title>Search | CSView</title>
+      </Head>
       <Navbar />
       <div id={styles.searchContainer}>
         <form id={styles.searchForm} onSubmit={onSearch}>
