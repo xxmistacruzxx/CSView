@@ -1,56 +1,63 @@
 import puppeteer from "puppeteer";
-import core from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
 
 // main function to get all player data
 export async function getStats(accNumber) {
   let browser;
-
-  if (process.env.ENV === "DEV") {
-    browser = await puppeteer.launch({ headless: "new" });
-  } else {
-    browser = await core.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
-      ignoreHTTPSErrors: true,
-    });
-  }
+  let options = {
+    headless: "new",
+    args: [
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+    ],
+  };
+  if (process.env.NODE_ENV === "production")
+    options.executablePath = "/usr/bin/chromium-browser"
+  browser = await puppeteer.launch(options);
 
   const page = await browser.newPage();
   await page.goto(`https://csgostats.gg/player/${accNumber}`);
   await page.setViewport({ width: 1080, height: 1024 });
 
   let data = {};
-  let temp;
-  data["username"] = await getTextContent(page, await page.$("#player-name"));
-  data["username"] = data["username"].trim();
-  data["profPic"] = await getSrc(
-    page,
-    await page.$(".player-ident-outer > img")
-  );
-  temp = await getTextContent(page, await page.$("#last-game"));
-  data["lastGame"] = temp.trim();
-  data["compWins"] = await getTextContent(
-    page,
-    await page.$("#competitve-wins span")
-  );
-  data["currRankImg"] = await getSrc(page, await page.$(".player-ranks img"));
-  temp = await page.$$(".player-ranks img");
-  data["bestRankImg"] = await getSrc(page, temp[1]);
-  data["kpd"] = await getTextContent(page, await page.$("#kpd span"));
-  data["hltv"] = await getTextContent(page, await page.$("#rating span"));
-  data["winrate"] = await getCol1Stat(page, "winrate");
-  data["winrate"]["winrate"] = data["winrate"]["winrate"].split("\n")[0];
-  data["hs%"] = await getCol1Stat(page, "hs%");
-  data["adr"] = await getCol1Stat(page, "adr");
-  data["clutch"] = await getClutch(page);
-  data["entry"] = await getEntry(page);
-  data["played"] = await getPlayed(page);
-  await browser.close();
+  try {
+    let temp;
+    data["username"] = await getTextContent(page, await page.$("#player-name"));
+    data["username"] = data["username"].trim();
+    data["profPic"] = await getSrc(
+      page,
+      await page.$(".player-ident-outer > img")
+    );
+    temp = await getTextContent(page, await page.$("#last-game"));
+    data["lastGame"] = temp.trim();
+    data["compWins"] = await getTextContent(
+      page,
+      await page.$("#competitve-wins span")
+    );
+    data["currRankImg"] = await getSrc(page, await page.$(".player-ranks img"));
+    temp = await page.$$(".player-ranks img");
+    try {
+      data["bestRankImg"] = await getSrc(page, temp[1]);
+    } catch (e) {
+      data["bestRankImg"] = data["currRankImg"];
+    }
+    data["kpd"] = await getTextContent(page, await page.$("#kpd span"));
+    data["hltv"] = await getTextContent(page, await page.$("#rating span"));
+    data["winrate"] = await getCol1Stat(page, "winrate");
+    data["winrate"]["winrate"] = data["winrate"]["winrate"].split("\n")[0];
+    data["hs%"] = await getCol1Stat(page, "hs%");
+    data["adr"] = await getCol1Stat(page, "adr");
+    data["clutch"] = await getClutch(page);
+    data["entry"] = await getEntry(page);
+    data["played"] = await getPlayed(page);
+  } catch (e) {
+    return { ...data, error: e.toString() };
+  } finally {
+    await browser.close();
+  }
 
-  console.log(`Server Side: ${JSON.stringify(data)}`);
+  // console.log(`Server Side: ${JSON.stringify(data)}`);
   return data;
 }
 

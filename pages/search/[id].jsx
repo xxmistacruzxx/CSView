@@ -5,6 +5,7 @@ import styles from "~/styles/search.module.css";
 import styles2 from "~/styles/searchResult.module.css";
 import Navbar from "~/components/navbar/navbar.jsx";
 import Footer from "~/components/footer/footer.jsx";
+import Head from "next/head";
 
 // import { getStats } from "~/data/scrape/csgostats/csgostatsscraper";
 
@@ -73,15 +74,23 @@ export default function Search(props) {
             {(() => {
               if (isLoading)
                 return (
-                  <div className={styles2.loading}>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
+                  <>
+                    <Head>
+                      <title>Searching... | CSView</title>
+                    </Head>
+                    <div className={styles2.loading}>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </>
                 );
               else
                 return (
                   <>
+                    <Head>
+                      <title>{data.username} | CSView</title>
+                    </Head>
                     <div id={styles2.banner}>
                       <div id={styles2.user}>
                         <img src={`${data.profPic}`} />

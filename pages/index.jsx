@@ -1,10 +1,15 @@
 import styles from "~/styles/index.module.css";
 import Navbar from "~/components/navbar/navbar.jsx";
 import Footer from "~/components/footer/footer.jsx";
+import Head from "next/head";
 
 export default function Home() {
   return (
-    <main>
+    <>
+    <Head>
+        <title>CSView</title>
+      </Head>
+      <main>
       <Navbar />
       <div className={styles.bannerContainer}>
         <h2>CSView</h2>
@@ -133,5 +138,7 @@ export default function Home() {
       </div>
       <Footer />
     </main>
+      </>
+    
   );
 }
