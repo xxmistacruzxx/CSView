@@ -115,3 +115,33 @@
   width: 32px;
   width: 32px;
 }
+
+@media screen and (max-width: 600px) {
+  #matches {
+    padding: 0px;
+    padding-top: 30px;
+  }
+
+  #matches > div > h2 {
+    text-align: center;
+  }
+
+  .match {
+    grid-template-columns: [first] 20% [line2] 80% [end];
+  }
+
+  .matchContent {
+    grid-template-columns: [first] 100% [end];
+    grid-template-rows: [first] 70% [second] 30% [end];
+  }
+
+  .teams {
+    border-bottom: solid 1px;
+    padding-bottom: 10px;
+  }
+
+  .team {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}

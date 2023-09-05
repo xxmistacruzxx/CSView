@@ -26,6 +26,7 @@
 
 .inputContainer label {
   color: var(--text-color2);
+  word-break: break-all;
 }
 
 #searchInputContainer {

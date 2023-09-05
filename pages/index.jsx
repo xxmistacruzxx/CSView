@@ -102,11 +102,11 @@ export default function Home() {
               <p>
                 Are you an avid viewer of professional CS:GO?
                 <br />
-                Need a way to view to the ongoing matches?
+                Need a way to view to the upcoming matches?
                 <br />
                 <br />
-                Use the matches dashboard to view the current professional
-                matches and navigate to places to watch them.
+                Use the matches dashboard to view the upcoming professional
+                matches and navigate to the places to watch them.
               </p>
               <a href="/matches">View Matches</a>
             </div>

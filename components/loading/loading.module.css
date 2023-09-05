@@ -65,3 +65,10 @@
   background-color: var(--background-color3);
   border-radius: 50%;
 }
+
+.loadingContainer p {
+  text-align: center;
+  color: var(--text-color1);
+  margin-top: 25px;
+  margin-bottom: 0px;
+}

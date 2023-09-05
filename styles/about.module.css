@@ -1,0 +1,143 @@
+.aboutContainer {
+  margin-top: 2%;
+  margin-bottom: 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.about {
+  width: 80%;
+  transition: background-color 200ms;
+}
+
+.about [active^="true"] {
+  background-color: var(--background-color1);
+}
+
+.aboutTabs {
+  display: flex;
+  flex-direction: row;
+}
+
+.aboutTab {
+  padding: 10px;
+  margin-right: 20px;
+  border: none;
+
+  transition: 200ms;
+  background-color: var(--background-color3);
+  color: var(--text-color1);
+  font-size: 32px;
+}
+
+.aboutTab:hover {
+  text-shadow: 1px 1px 5px #fff;
+}
+
+.aboutContent > * {
+  display: none;
+  padding: 20px;
+}
+
+.aboutContent > [active^="true"] {
+  display: block;
+}
+
+.aboutBanner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.aboutBanner > img {
+  align-self: center;
+  width: 64px;
+  height: 64px;
+}
+
+.aboutBanner > h2 {
+  color: var(--text-color1);
+  font-size: 48px;
+  margin: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.aboutBody h3 {
+  color: var(--text-color1);
+}
+
+.aboutBody h4 {
+  color: var(--text-color1);
+}
+
+.aboutBody p {
+  color: var(--text-color2);
+}
+
+.aboutBody a {
+  color: var(--text-color1);
+}
+
+@media screen and (max-width: 600px) {
+  .aboutTab {
+    font-size: 24px;
+  }
+  .about {
+    width: 100%;
+  }
+}
+
+#myLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#myLinks a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-color1);
+  text-decoration: none;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#myLinks a img {
+  filter: var(--filter);
+  height: 48px;
+  width: 48px;
+  background-color: var(--background-color4);
+  border: solid 1px var(--background-color3);
+
+  border-radius: 50%;
+  transition: background-color 200ms;
+}
+
+#myLinks a img:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+#myLinks p {
+  margin: 0px;
+}
+
+#myDescription {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#myDescription > p {
+  color: var(--text-color2);
+  text-indent: 2em;
+}
+
+@media screen and (max-width: 600px) {
+  #myDescription {
+    width: 100%;
+  }
+}
