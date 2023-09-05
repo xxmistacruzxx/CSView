@@ -1,9 +1,10 @@
 import $ from "jquery";
+import Head from "next/head";
 
 import styles from "~/styles/search.module.css";
 import Navbar from "~/components/navbar/navbar.jsx";
 import Footer from "~/components/footer/footer.jsx";
-import Head from "next/head";
+import SearchTips from "~/components/searchtips/searchtips";
 
 export default function Search() {
   function onSearch(event) {
@@ -31,7 +32,9 @@ export default function Search() {
             className={styles.inputContainer}
             id={styles.searchInputContainer}
           >
-            <label htmlFor="searchInput">Username/SteamID/URL</label>
+            <label htmlFor="searchInput">
+              Username/CommunityID/SteamID/URL
+            </label>
             <div id={styles.searchInput}>
               <input
                 id="searchInput"
@@ -53,6 +56,7 @@ export default function Search() {
             </div>
           </div>
         </form>
+        <SearchTips />
       </div>
       <Footer />
     </main>

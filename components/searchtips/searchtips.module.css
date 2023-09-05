@@ -1,0 +1,21 @@
+#searchTips {
+  margin: 20px;
+  padding: 20px;
+  max-width: 40%;
+
+  border-radius: 20px;
+
+  background-color: var(--background-color3);
+  color: var(--text-color1);
+  word-wrap: break-word;
+}
+
+#searchTips > h3 {
+  margin: 0px;
+}
+
+@media screen and (max-width: 600px) {
+  #searchTips {
+    max-width: 90%;
+  }
+}

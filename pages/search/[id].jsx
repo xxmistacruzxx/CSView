@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import $ from "jquery";
 
 import styles from "~/styles/search.module.css";
 import styles2 from "~/styles/searchResult.module.css";
 import Navbar from "~/components/navbar/navbar.jsx";
 import Footer from "~/components/footer/footer.jsx";
-import Head from "next/head";
+import Loading from "~/components/loading/loading";
 
 // import { getStats } from "~/data/scrape/csgostats/csgostatsscraper";
 
@@ -78,11 +79,7 @@ export default function Search(props) {
                     <Head>
                       <title>Searching... | CSView</title>
                     </Head>
-                    <div className={styles2.loading}>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                    </div>
+                    <Loading />
                   </>
                 );
               else

@@ -52,7 +52,7 @@ export async function getStats(accNumber) {
     data["entry"] = await getEntry(page);
     data["played"] = await getPlayed(page);
   } catch (e) {
-    return { ...data, error: e.toString() };
+    data = { ...data, error: e.toString() };
   } finally {
     await browser.close();
   }
