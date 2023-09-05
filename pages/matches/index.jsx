@@ -3,6 +3,7 @@ import Head from "next/head";
 import $ from "jquery";
 
 import styles from "~/styles/matches.module.css";
+import styles2 from "~/styles/error.module.css";
 import Navbar from "~/components/navbar/navbar";
 import Footer from "~/components/footer/footer";
 import Loading from "~/components/loading/loading";
@@ -35,7 +36,27 @@ export default function Matches() {
             <div id={styles.matches}>
               {(() => {
                 if (isLoading) return <Loading />;
-                if (data.error !== undefined) return <h2>ERROR</h2>;
+                if (data.error !== undefined)
+                  return (
+                    <div className={styles2.error}>
+                      <h2>ERROR</h2>
+                      <p>
+                        We were unable to look up the upcoming matches from{" "}
+                        <a
+                          href="https://www.hltv.org/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          HLTV
+                        </a>
+                        . Please wait 30 seconds and try again.
+                      </p>
+                      <p>
+                        If this error persists, please contact the developers
+                        via the information in the footer of this page.
+                      </p>
+                    </div>
+                  );
                 return data.data.map((section) =>
                   createSectionElement(section)
                 );

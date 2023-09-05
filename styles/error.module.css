@@ -1,0 +1,13 @@
+.error h2 {
+  color: var(--text-color1);
+}
+
+.error p {
+  color: var(--text-color2);
+}
+
+.error a {
+  color: var(--text-color2);
+  text-decoration: none;
+  font-weight: bold;
+}

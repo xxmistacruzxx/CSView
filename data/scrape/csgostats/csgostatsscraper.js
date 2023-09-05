@@ -1,21 +1,7 @@
-import puppeteer from "puppeteer";
+import { browser } from "../browser.js";
 
 // main function to get all player data
 export async function getStats(accNumber) {
-  let browser;
-  let options = {
-    headless: "new",
-    args: [
-      "--disable-gpu",
-      "--disable-dev-shm-usage",
-      "--disable-setuid-sandbox",
-      "--no-sandbox",
-    ],
-  };
-  if (process.env.NODE_ENV === "production")
-    options.executablePath = "/usr/bin/chromium-browser"
-  browser = await puppeteer.launch(options);
-
   const page = await browser.newPage();
   await page.goto(`https://csgostats.gg/player/${accNumber}`);
   await page.setViewport({ width: 1080, height: 1024 });
@@ -54,7 +40,7 @@ export async function getStats(accNumber) {
   } catch (e) {
     data = { ...data, error: e.toString() };
   } finally {
-    await browser.close();
+    await page.close();
   }
 
   // console.log(`Server Side: ${JSON.stringify(data)}`);
