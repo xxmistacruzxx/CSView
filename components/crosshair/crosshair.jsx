@@ -1,8 +1,22 @@
 import styles from "./crosshair.module.css";
 
 export default function Crosshair({ name, commandsString }) {
+  function unsecuredCopyToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand("copy");
+    } catch (err) {
+      console.error("Unable to copy to clipboard", err);
+    }
+    document.body.removeChild(textArea);
+  }
+
   function copyCommands() {
-    navigator.clipboard.writeText(commandsString);
+    unsecuredCopyToClipboard(commandsString);
     alert(
       `${name}'s crosshair copied!\nPaste the sequence of commands in your game console to use it!`
     );
