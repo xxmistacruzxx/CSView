@@ -1,0 +1,20 @@
+.crosshairsHeader {
+  text-align: center;
+  color: var(--text-color1);
+  font-size: xx-large;
+  margin-bottom: 5px;
+}
+
+.crosshairsCaption {
+  text-align: center;
+  margin: 0px;
+  color: var(--text-color1);
+}
+
+.crosshairs {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}

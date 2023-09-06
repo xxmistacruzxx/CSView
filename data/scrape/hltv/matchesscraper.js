@@ -79,7 +79,7 @@ export async function getMatches() {
   } catch (e) {
     data = { ...data, error: e.toString() };
   } finally {
-    await page.close();
+    browser.close();
   }
 
   //   console.log(`Server Side: ${JSON.stringify(data)}`);

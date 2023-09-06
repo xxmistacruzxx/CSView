@@ -1,0 +1,68 @@
+@keyframes grad {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.crosshairContainer {
+  flex: 1 0 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.crosshairBorder {
+  border-radius: 5px;
+  padding: 2px;
+
+  background: linear-gradient(
+    -45deg,
+    var(--background-color3),
+    var(--background-color2),
+    var(--background-color3)
+  );
+  background-size: 400% 400%;
+  animation: grad 10s linear infinite;
+}
+
+.crosshair {
+  width: fit-content;
+  padding: 2px;
+  background-color: var(--background-color1);
+  padding: 8px;
+  border-radius: 5px;
+  transition: 100ms;
+}
+
+.crosshair:hover {
+  background-color: var(--background-color2);
+}
+
+.crosshair > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.crosshairImg {
+  margin-left: auto;
+  margin-right: auto;
+  width: 64px;
+  height: 64px;
+}
+
+.crosshairNameContainer {
+  align-self: center;
+}
+
+.crosshairName {
+  color: var(--text-color1);
+  margin: 0px;
+}

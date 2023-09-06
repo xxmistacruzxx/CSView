@@ -189,7 +189,7 @@ export default function About() {
               </div>
               <div id="aboutMe" className={styles.aboutSection}>
                 <div className={styles.aboutBanner}>
-                  <img src="/images/me2.jpg" style={{ borderRadius: "50%" }} />
+                  <img src="/images/me2.jpg" style={{ borderRadius: "10px" }} />
                   <h2>David Cruz</h2>
                 </div>
                 <div id={styles.myLinks}>

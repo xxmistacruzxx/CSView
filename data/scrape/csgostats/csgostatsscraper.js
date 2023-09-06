@@ -41,7 +41,7 @@ export async function getStats(accNumber) {
   } catch (e) {
     data = { ...data, error: e.toString() };
   } finally {
-    await page.close();
+    browser.close();
   }
 
   // console.log(`Server Side: ${JSON.stringify(data)}`);
