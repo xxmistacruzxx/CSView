@@ -1,7 +1,8 @@
-import { browser } from "../browser.js";
+import getBrowser from "../browser.js";
 
 // main function to get all player data
 export async function getStats(accNumber) {
+  const browser = await getBrowser();
   const page = await browser.newPage();
   await page.goto(`https://csgostats.gg/player/${accNumber}`);
   await page.setViewport({ width: 1080, height: 1024 });

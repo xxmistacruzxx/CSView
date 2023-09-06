@@ -19,9 +19,32 @@
   }
 }
 
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+
+  width: fit-content;
+  padding: 30px;
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: var(--background-color3);
+  color: var(--text-color1);
+  text-align: center;
+}
+
+.loadingContainer p {
+  width: fit-content;
+  align-self: center;
+  padding-top: 25px;
+  margin: 0px;
+}
+
 .loading {
   width: 150px;
   height: 150px;
+
+  align-self: center;
 
   animation: spin 1s linear infinite;
   border-radius: 50%;
@@ -64,11 +87,4 @@
 
   background-color: var(--background-color3);
   border-radius: 50%;
-}
-
-.loadingContainer p {
-  text-align: center;
-  color: var(--text-color1);
-  margin-top: 25px;
-  margin-bottom: 0px;
 }

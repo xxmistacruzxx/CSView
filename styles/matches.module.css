@@ -120,6 +120,7 @@
   #matches {
     padding: 0px;
     padding-top: 30px;
+    padding-bottom: 30px;
   }
 
   #matches > div > h2 {
