@@ -61,7 +61,7 @@ export default function About() {
                   <h3>General</h3>
                   <p>
                     CSView, developed by @xxmistacruzxx, is a service designed
-                    to provide insightful tools to Counter-Strike players.
+                    to provide insightful tools to avid Counter-Strike players.
                     <br />
                     <br />
                     The main features of CSView are...
