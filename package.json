@@ -5,7 +5,7 @@
     "build": "next build",
     "start": "next start",
     "dockerbuild": "docker build -t xxmistacruzxx/csview .",
-    "dockerstart": "docker run -p 3000:3000 xxmistacruzxx/csview"
+    "dockerstart": "docker run -p 3000:3000 --env-file .env.local xxmistacruzxx/csview"
   },
   "dependencies": {
     "axios": "^1.4.0",

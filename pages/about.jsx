@@ -178,11 +178,27 @@ export default function About() {
                     </a>
                     <br />•{" "}
                     <a
+                      href="https://cloud.google.com/run"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Google Cloud Run
+                    </a>
+                    <br />•{" "}
+                    <a
                       href="https://www.docker.com/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       Docker
+                    </a>
+                    <br />•{" "}
+                    <a
+                      href="https://www.browserless.io/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Browserless
                     </a>
                   </p>
                 </div>
