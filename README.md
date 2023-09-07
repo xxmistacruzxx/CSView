@@ -30,6 +30,7 @@ CSView also uses [hltv.org](https://www.hltv.org/) to obtain Counter-Strike prof
 
 ## Development Libraries
 
+CSView is built using a variety of development tools, such as...<br>
 • [Next](https://nextjs.org/)<br>
 • [React](https://react.dev/)<br>
 • [Puppeteer](https://pptr.dev/)<br>
@@ -38,7 +39,7 @@ CSView also uses [hltv.org](https://www.hltv.org/) to obtain Counter-Strike prof
 
 ## Deployment Tools
 
-CSView is deployed using...
+CSView is deployed using...<br>
 • [Oracle Cloud](https://www.oracle.com/cloud/)<br>
 • [Google Cloud Run](https://cloud.google.com/run)<br>
 • [Docker](https://www.docker.com/)<br>
