@@ -1,7 +1,7 @@
 import getBrowser from "../browser.js";
 
 export async function getMatches() {
-  const browser = await getBrowser();
+  const browser = await getBrowser(`MATCHES`);
   const page = await browser.newPage();
   await page.goto(`https://www.hltv.org/matches`);
   await page.setViewport({ width: 1080, height: 1024 });

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import $ from "jquery";
 
 import styles from "~/styles/matches.module.css";
 import styles2 from "~/styles/error.module.css";
@@ -72,7 +71,7 @@ export default function Matches() {
 
 function createSectionElement(sectionData) {
   return (
-    <div className={styles.section}>
+    <div className={styles.section} key={sectionData.date}>
       <h2 className={styles.sectionHeader}>{sectionData.date}</h2>
       <div className={styles.sectionMatches}>
         {(() => {
@@ -90,6 +89,7 @@ function createMatchElement(matchData) {
       target="_blank"
       rel="noopener"
       href={matchData.link}
+      key={`${matchData.link}`}
     >
       <div className={styles.matchInfo}>
         <div>{matchData.time}</div>
@@ -114,7 +114,10 @@ function createMatchElement(matchData) {
               </div>
               <div className={styles.team}>
                 <div>
-                  <img src={matchData.team2.img} />
+                  {(() => {
+                    if (matchData.team2.img === "") return <></>;
+                    return <img src={matchData.team2.img} />;
+                  })()}
                 </div>
                 <div>{matchData.team2.name}</div>
               </div>
