@@ -239,7 +239,7 @@ export default function About() {
                   </a>
                   <a
                     id="resumeLink"
-                    href="https://drive.google.com/file/d/1ANYVE9pHHH9K74U8HtZmYNOnpWk3dwxN/view?usp=sharing"
+                    href="https://www.dropbox.com/scl/fi/2d53sl53z0kl7pyoh18rl/David-Cruz-Resume.pdf?rlkey=wudu3pwt1yyn3vz6x2uy0nbg7&dl=0"
                     title="Resume"
                     target="_blank"
                     rel="noreferrer noopener"
