@@ -101,11 +101,11 @@ export default function About() {
                   <p>
                     CSView uses{" "}
                     <a
-                      href="https://www.csgostats.gg/"
+                      href="https://csstats.gg/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      csgostats.gg
+                      csstats.gg
                     </a>{" "}
                     to obtain Counter-Strike player data for the lookup
                     functionalities.

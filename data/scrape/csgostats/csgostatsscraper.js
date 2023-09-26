@@ -1,43 +1,40 @@
 import getBrowser from "../browser.js";
 
-// main function to get all player data
+// GET ALL PLAYER DATA FUNCTION
 export async function getStats(accNumber) {
   const browser = await getBrowser(`SEARCH ${accNumber}`);
-  const page = await browser.newPage();
-  await page.goto(`https://csgostats.gg/player/${accNumber}`);
-  await page.setViewport({ width: 1080, height: 1024 });
+  const [csgoPage, cs2Page] = await Promise.all([
+    await browser.newPage(),
+    await browser.newPage(),
+  ]);
+  await Promise.all([
+    csgoPage.goto(`https://csstats.gg/player/${accNumber}`),
+    cs2Page.goto(`https://csstats.gg/player/${accNumber}/cs2`),
+  ]);
+  await Promise.all([
+    csgoPage.setViewport({ width: 1080, height: 1024 }),
+    cs2Page.setViewport({ width: 1080, height: 1024 }),
+  ]);
 
   let data = {};
   try {
-    let temp;
-    data["username"] = await getTextContent(page, await page.$("#player-name"));
-    data["username"] = data["username"].trim();
-    data["profPic"] = await getSrc(
-      page,
-      await page.$(".player-ident-outer > img")
+    data.general = {};
+    data.general.id = accNumber;
+    data.general.playerAvatar = await getSrc(
+      csgoPage,
+      await csgoPage.$("#player-avatar > img")
     );
-    temp = await getTextContent(page, await page.$("#last-game"));
-    data["lastGame"] = temp.trim();
-    data["compWins"] = await getTextContent(
-      page,
-      await page.$("#competitve-wins span")
+    data.general.playerName = await getTextContent(
+      csgoPage,
+      await csgoPage.$("#player-name")
     );
-    data["currRankImg"] = await getSrc(page, await page.$(".player-ranks img"));
-    temp = await page.$$(".player-ranks img");
-    try {
-      data["bestRankImg"] = await getSrc(page, temp[1]);
-    } catch (e) {
-      data["bestRankImg"] = data["currRankImg"];
-    }
-    data["kpd"] = await getTextContent(page, await page.$("#kpd span"));
-    data["hltv"] = await getTextContent(page, await page.$("#rating span"));
-    data["winrate"] = await getCol1Stat(page, "winrate");
-    data["winrate"]["winrate"] = data["winrate"]["winrate"].split("\n")[0];
-    data["hs%"] = await getCol1Stat(page, "hs%");
-    data["adr"] = await getCol1Stat(page, "adr");
-    data["clutch"] = await getClutch(page);
-    data["entry"] = await getEntry(page);
-    data["played"] = await getPlayed(page);
+    data.general.playerLink = await getHref(
+      csgoPage,
+      await csgoPage.$("#other-profiles > .icon > a")
+    );
+
+    data.cs2 = await getCs2Data(cs2Page);
+    data.csgo = await getCsgoData(csgoPage);
   } catch (e) {
     data = { ...data, error: e.toString() };
   } finally {
@@ -48,112 +45,211 @@ export async function getStats(accNumber) {
   return data;
 }
 
-// helper functions for getting player stats
+async function getCsgoData(page) {
+  let data = {};
+  data.lastPlayed = await getTextContent(
+    page,
+    await page.$("#csgo-rank > .icon")
+  );
+  data.wins = await getTextContent(page, await page.$("#csgo-rank > .wins"));
+  try {
+    data.rank = await getSrc(page, await page.$("#csgo-rank > .rank > img"));
+  } catch (e) {
+    data.rank = "https://static.csstats.gg/images/ranks/0.png";
+  }
+  try {
+    data.best = await getSrc(page, await page.$("#csgo-rank > .best > img"));
+  } catch (e) {
+    data.best = data.rank;
+  }
+
+  data.inner = await getInnerData(page);
+
+  return data;
+}
+
+async function getCs2Data(page) {
+  let data = {};
+  data.lastPlayed = await getTextContent(
+    page,
+    await page.$("#cs2-rank > .icon")
+  );
+  data.wins = await getTextContent(page, await page.$("#cs2-rank > .wins"));
+  data.rank = await getTextContent(
+    page,
+    await page.$("#cs2-rank > .rank > div > span")
+  );
+  data.rankBackground = await getBackgroundImage(
+    page,
+    await page.$("#cs2-rank > .rank > div")
+  );
+  try {
+    data.best = await getTextContent(
+      page,
+      await page.$("#cs2-rank > .best > div > span")
+    );
+  } catch (e) {
+    data.best = data.rank;
+  }
+  try {
+    data.bestBackground = await getBackgroundImage(
+      page,
+      await page.$("#cs2-rank > .best > div")
+    );
+  } catch (e) {
+    data.bestBackground = data.rankBackground;
+  }
+
+  data.inner = await getInnerData(page);
+
+  return data;
+}
+
+async function getInnerData(page) {
+  let data = {};
+  data.kpd = await getTextContent(page, await page.$("#kpd > span"));
+  data.rating = await getTextContent(page, await page.$("#rating > span"));
+
+  data.winRate = await getWinRatePanel(page);
+  data.hs = await getHSPanel(page);
+  data.adr = await getADRPanel(page);
+  data.clutch = await getClutchPanel(page);
+  data.entry = await getEntryPanel(page);
+
+  return data;
+}
+
+async function getWinRatePanel(page) {
+  let data = {};
+  data = page.evaluate(() => {
+    let panel =
+      document.querySelector(".col-sm-7").children[3].children[0].children[1];
+    let winRate = panel.children[1].textContent.trim();
+    winRate = winRate.substring(0, winRate.indexOf("%") + 1);
+    let lowerPanel = panel.children[3];
+    let played = lowerPanel.children[0].children[1].textContent.trim();
+    let won = lowerPanel.children[1].children[1].textContent.trim();
+    let lost = lowerPanel.children[2].children[1].textContent.trim();
+    let tied = lowerPanel.children[3].children[1].textContent.trim();
+    return {
+      winRate: winRate,
+      played: played,
+      won: won,
+      lost: lost,
+      tied: tied,
+    };
+  });
+  return data;
+}
+
+async function getHSPanel(page) {
+  let data = {};
+  data = page.evaluate(() => {
+    let panel =
+      document.querySelector(".col-sm-7").children[4].children[0].children[1];
+    let hs = panel.children[1].textContent.trim();
+    hs = hs.substring(0, hs.indexOf("%") + 1);
+    let lowerPanel = panel.children[3];
+    let kills = lowerPanel.children[0].children[1].textContent.trim();
+    let deaths = lowerPanel.children[1].children[1].textContent.trim();
+    let assists = lowerPanel.children[2].children[1].textContent.trim();
+    let headshots = lowerPanel.children[3].children[1].textContent.trim();
+    return {
+      hs: hs,
+      kills: kills,
+      deaths: deaths,
+      assists: assists,
+      headshots: headshots,
+    };
+  });
+  return data;
+}
+
+async function getADRPanel(page) {
+  let data = {};
+  data = page.evaluate(() => {
+    let panel =
+      document.querySelector(".col-sm-7").children[5].children[0].children[1];
+    let adr = panel.children[1].textContent.trim();
+    if (adr.indexOf("\n") !== -1) adr = adr.substring(0, adr.indexOf("\n"));
+    let lowerPanel = panel.children[3];
+    let damage = lowerPanel.children[0].children[1].textContent.trim();
+    let rounds = lowerPanel.children[1].children[1].textContent.trim();
+    return {
+      adr: adr,
+      damage: damage,
+      rounds: rounds,
+    };
+  });
+  return data;
+}
+
+async function getClutchPanel(page) {
+  let data = {};
+  data = page.evaluate(() => {
+    let panel =
+      document.querySelector(".col-sm-5").children[0].children[0].children[1];
+    let clutch = panel.children[0].children[1].textContent.trim();
+    let lowerPanel = panel.children[1];
+    let clutches = {};
+    for (let i = 0; i < 5; i++) {
+      clutches[`${i + 1}`] = {
+        percentage: lowerPanel.children[i].children[2].textContent.trim(),
+        raw: lowerPanel.children[i].children[3].textContent.trim(),
+      };
+    }
+    return { clutch: clutch, clutches: clutches };
+  });
+  return data;
+}
+
+async function getEntryPanel(page) {
+  let data = {};
+  data = page.evaluate(() => {
+    let panel =
+      document.querySelector(".col-sm-5").children[0].children[1].children[1];
+    let entry = panel.children[0].children[1].textContent.trim();
+    let successPanel = panel.children[2];
+    let success = {
+      combined: successPanel.children[1].textContent.trim(),
+      t: successPanel.children[2].textContent.trim(),
+      ct: successPanel.children[3].textContent.trim(),
+    };
+    let attemptPanel = panel.children[3];
+    let attempts = {
+      combined: attemptPanel.children[1].textContent.trim(),
+      t: attemptPanel.children[2].textContent.trim(),
+      ct: attemptPanel.children[3].textContent.trim(),
+    };
+    return { entry: entry, success: success, attempts: attempts };
+  });
+  return data;
+}
+
+// BASIC HELPER FUNCTIONS
 async function getTextContent(page, element) {
   let value = await page.evaluate((el) => el.textContent, element);
+  value = value.trim();
   return value;
 }
 
 async function getSrc(page, element) {
   let value = await page.evaluate((el) => el.src, element);
+  value = value.trim();
   return value;
 }
 
-// get functions for player stats
-async function getCol1Stat(page, type) {
-  // types can be "winrate", "hs%", or "adr".
-  let data = {};
-  let index = 4;
-  switch (type) {
-    case "hs%":
-      index = 5;
-      break;
-    case "adr":
-      index = 6;
-      break;
-    default:
-      index = 4;
-  }
+async function getHref(page, element) {
+  let value = await page.evaluate((el) => el.href, element);
+  value = value.trim();
+  return value;
+}
 
-  let statPanel = await page.$(
-    `.stats-col-1 > div:nth-child(${index}) .stat-panel`
+async function getBackgroundImage(page, element) {
+  let value = await page.evaluate(
+    (el) => el.style["background-image"],
+    element
   );
-  let element = await statPanel.$("div:nth-child(2) > div:nth-child(2)");
-  let text = await getTextContent(page, element);
-  data[type] = text.trim();
-
-  element = await statPanel.$("div:nth-child(2) > div:nth-child(4)");
-  let labels = await element.$$(".total-stat > .total-label");
-  let values = await element.$$(".total-stat > .total-value");
-  for (let i = 0; i < values.length; i++) {
-    values[i] = await getTextContent(page, values[i]);
-  }
-  for (let i = 0; i < labels.length; i++) {
-    labels[i] = await getTextContent(page, labels[i]);
-    data[labels[i]] = values[i];
-  }
-
-  return data;
-}
-
-async function getClutch(page) {
-  let data = {};
-  for (let i = 0; i < 5; i++) {
-    const clutchPair = await page.evaluate((elementId) => {
-      const clutchTitleElement = document.getElementById(elementId);
-      if (!clutchTitleElement) return null;
-      const clutchContainerElement = clutchTitleElement.parentElement;
-      if (!clutchContainerElement) return null;
-
-      return [
-        clutchContainerElement.children[1].innerText,
-        clutchContainerElement.children[3].innerText,
-      ];
-    }, `1v${i + 1}-chart-canvas`);
-    data[clutchPair[0]] = clutchPair[1];
-  }
-
-  return data;
-}
-
-async function getEntry(page) {
-  let data = {};
-  const overallEntrySuccess = await page.evaluate((query) => {
-    return document.querySelector(query).innerText;
-  }, ".stats-col-2 > .inner-col-1 > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(2)");
-  data.overall = overallEntrySuccess;
-  const rates = await page.evaluate(
-    (query) => {
-      let successRatesContainer = document.querySelector(query[0]);
-      let successRates = [];
-      let attemptsRatesContainer = document.querySelector(query[1]);
-      let attemptsRates = [];
-      for (let i = 0; i < 3; i++) {
-        successRates.push(successRatesContainer.children[i + 1].innerText);
-        attemptsRates.push(attemptsRatesContainer.children[i + 1].innerText);
-      }
-      return [successRates, attemptsRates];
-    },
-    [
-      ".stats-col-2 > .inner-col-1 > :nth-child(2) > :nth-child(2) > :nth-child(3)",
-      ".stats-col-2 > .inner-col-1 > :nth-child(2) > :nth-child(2) > :nth-child(4)",
-    ]
-  );
-  data.success = rates[0];
-  data.attempts = rates[1];
-  return data;
-}
-
-async function getPlayed(page) {
-  let data = {};
-  const maps = await page.evaluate((query) => {
-    let container = document.querySelector(query);
-    let maps = [];
-    for (let i = 0; i < 4; i++) {
-      let row = container.children[i].children[0];
-      maps.push([row.children[0].innerText, row.children[1].innerText]);
-    }
-    return maps;
-  }, ".stats-col-3 > .inner-col-2 > :nth-child(2) > :nth-child(1) > :nth-child(1) > :nth-child(1) > :nth-child(2)");
-  return maps;
+  value = value.trim();
+  return value;
 }

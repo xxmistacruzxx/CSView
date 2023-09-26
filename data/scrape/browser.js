@@ -9,7 +9,7 @@ export default async function getBrowser(reason) {
       browserWSEndpoint: `${process.env.BROWSERURL}?stealth`,
     });
   } else {
-    console.log(`${stamp} Using local browser...${stamp} `);
+    console.log(`${stamp} Using local browser...`);
     let options = {
       headless: "new",
       args: [

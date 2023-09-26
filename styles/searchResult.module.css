@@ -28,222 +28,193 @@
   border-radius: 30px;
 }
 
-#banner {
+.playerBanner {
   display: flex;
   flex-direction: row;
-  color: var(--text-color1);
 }
 
-#banner > h3 {
-  margin: 0px;
-}
-
-#banner > p {
-  margin: 0px;
-}
-
-#user {
+.player {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
-  align-self: center;
+  text-decoration: none;
 }
 
-#user img {
+.player > img {
   border-radius: 50%;
 }
-
-#user h2 {
-  margin-bottom: 0px;
-}
-
-#user p {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-#quickInfo {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-
-  margin-left: 20px;
-}
-
-#quickInfo > div {
-  margin-bottom: 20px;
-}
-
-#ranks {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#ranks > :nth-child(1) {
-  margin-right: 10px;
-}
-
-#ranks > :nth-child(2) {
-  margin-left: 10px;
-}
-
-#quickStats {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#quickStats h3 {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-#quickStats p {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-#profileBody {
-  display: grid;
-  grid-template-columns: 48% 50%;
-  grid-template-rows: auto;
-  gap: 0px 2%;
-}
-
-#profileBody > div:nth-child(2n + 1) {
-  grid-column: 1/1;
-}
-
-#profileBody > div:nth-child(2n) {
-  grid-column: 2/2;
-}
-
-.statSection {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.statSection > h3 {
+.player > h2 {
   color: var(--text-color1);
-  margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.statRow {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 20px;
-
-  background-color: var(--background-color1);
-  border-radius: 20px;
-}
-
-.statRow * {
-  margin: 0px;
-}
-
-.statRow > div {
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-}
-
-.statRow > div > div {
-  margin-right: 20px;
-}
-
-.statRow > div > h4 {
+.player > p {
+  margin-top: 0px;
   color: var(--text-color3);
 }
 
-.statRow > div > p {
-  color: var(--text-color1);
+.ranks {
+  display: grid;
+  grid-template-rows: [first] 10% [row2] 35% [row3] 35% [row4] 20% [end];
+  grid-template-columns: [first] 20% [col2] 40% [col3] 40% [end];
+
+  text-align: center;
 }
 
-#specificStats {
+.ranks > div {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-#entry {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-#entry > h3 {
-  color: var(--text-color1);
-  margin: 0px;
-}
-
-#entry > div {
-  display: grid;
-  grid-template-rows: 33% 33% 33%;
-  grid-template-columns: 25% 25% 25% 25%;
-  background-color: var(--background-color1);
-  padding: 15px;
-  border-radius: 20px;
-  justify-items: center;
+  justify-content: center;
   align-items: center;
 }
 
-#entry > div > div {
-  width: fit-content;
-}
-
-#played {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-#played > h3 {
+.ranks h3 {
   margin: 0px;
   color: var(--text-color1);
 }
 
-#played > div {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--background-color1);
-  padding: 15px;
-  border-radius: 20px;
+.ranks img {
+  width: 100%;
 }
 
-#played > div > div {
+.ranks p {
+  color: var(--text-color2);
+  width: 80%;
+}
+
+.cs2Rank {
+  margin: 0px;
+  font-size: x-large;
+}
+
+.gameSelector {
+  display: grid;
+  grid-template-columns: [first] 50% [col2] 50% [end];
+}
+
+.gameSelector > div {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
 
-#played > div > div > div {
+.gameSelector > div > button {
+  width: 60%;
+  margin-bottom: 10px;
+  background-color: var(--background-color2);
+  border: none;
+  border-radius: 25px;
+  color: var(--text-color1);
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.gameHeader {
+  text-align: center;
+  margin: 0px;
+  color: white;
+  font-size: xx-large;
+}
+
+.mainStats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.mainStats > div {
+  text-align: center;
+}
+
+.mainStats > div > h3 {
+  color: var(--text-color1);
+  margin: 0px;
+}
+
+.mainStats > div > p {
+  color: var(--text-color2);
+  margin: 0px;
+  font-size: x-large;
+}
+
+.boxedStats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.statsBox {
+  width: fit-content;
+  margin: 10px;
+  padding: 10px;
+  background-color: var(--background-color);
+  border-radius: 25px;
+}
+
+.statsBox > h3 {
   color: var(--text-color1);
 }
 
+.statsBox > p {
+  color: var(--text-color2);
+}
+
+.clutch > h2 {
+  color: var(--text-color1);
+  margin-bottom: 0px;
+}
+
+.clutch > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  padding: 20px;
+  border-radius: 25px;
+
+  background-color: var(--background-color);
+}
+
+.clutch > div > div {
+  text-align: center;
+  margin: 10px;
+}
+
+.clutch > div > div > h4 {
+  margin: 0px;
+  color: var(--text-color1);
+}
+
+.clutch > div > div > p {
+  margin: 0px;
+  color: var(--text-color2);
+}
+
+.entry > h2 {
+  color: var(--text-color1);
+  margin-bottom: 0px;
+}
+
+.entry > div {
+  display: grid;
+  grid-template-rows: [first] auto [row2] auto [row3] auto [end];
+  grid-template-columns: [first] 25% [col2] 25% [col3] 25% [col3] 25% [end];
+
+  padding: 20px;
+  border-radius: 25px;
+
+  background-color: var(--background-color);
+  color: var(--text-color1);
+}
+
+.entry > div > div {
+  text-align: center;
+}
+
 @media screen and (max-width: 600px) {
-  #searchResultContainer {
-    width: 100%;
-  }
-  #banner {
-    flex-direction: column;
-  }
-  #quickInfo {
-    margin-left: 0px;
-  }
-
-  #ranks > div {
-    width: 45%;
-  }
-  #ranks > div > img {
-    width: 100%;
-  }
-
-  #profileBody {
-    display: flex;
+  .playerBanner {
     flex-direction: column;
   }
 }

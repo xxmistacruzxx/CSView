@@ -40,6 +40,9 @@ export default function Search(props) {
       });
   }, []);
 
+  // CS2 vs CSGO
+  const [selGame, setSelGame] = useState("cs2");
+
   return (
     <main>
       <Navbar />
@@ -115,240 +118,284 @@ export default function Search(props) {
               return (
                 <>
                   <Head>
-                    <title>{data.username} | CSView</title>
+                    <title>{data.general.playerName} | CSView</title>
                   </Head>
-                  <div id={styles2.banner}>
-                    <div id={styles2.user}>
-                      <img src={`${data.profPic}`} />
-                      <h2>{data.username}</h2>
-                      <p>{data.lastGame}</p>
-                    </div>
-                    <div id={styles2.quickInfo}>
-                      <div id={styles2.ranks}>
-                        <div>
-                          <h3>Current Rank</h3>
-                          <img src={`${data.currRankImg}`} />
-                        </div>
-                        <div>
-                          <h3>Best Rank</h3>
-                          <img src={`${data.bestRankImg}`} />
-                        </div>
+                  <div className={styles2.playerBanner}>
+                    <a
+                      href={data.general.playerLink}
+                      className={styles2.player}
+                    >
+                      <img src={data.general.playerAvatar} />
+                      <h2>{data.general.playerName}</h2>
+                      <p>{data.general.id}</p>
+                    </a>
+                    <div className={styles2.ranks}>
+                      <div style={{ gridColumn: "1/1", gridRow: "2/2" }}>
+                        <h3>Rank</h3>
                       </div>
-                      <div id={styles2.quickStats}>
-                        <div>
-                          <h3>K/D</h3>
-                          <p>{`${data.kpd}`}</p>
-                        </div>
-                        <div>
-                          <h3>HLTV Rating</h3>
-                          <p>{`${data.hltv}`}</p>
-                        </div>
-                        <div>
-                          <h3>Competitive Wins</h3>
-                          <p>{`${data.compWins}`}</p>
-                        </div>
+                      <div style={{ gridColumn: "1/1", gridRow: "3/3" }}>
+                        <h3>Best</h3>
                       </div>
-                      <div className={styles2.statSection}>
-                        <h3>Win Rate: {`${data.winrate.winrate}`}</h3>
-                        <div id={styles2.winRate} className={styles2.statRow}>
-                          <div>
-                            <h4>Played</h4>
-                            <p>{`${data.winrate.Played}`}</p>
-                          </div>
-                          <div>
-                            <h4>Won</h4>
-                            <p>{`${data.winrate.Won}`}</p>
-                          </div>
-                          <div>
-                            <h4>Lost</h4>
-                            <p>{`${data.winrate.Lost}`}</p>
-                          </div>
-                          <div>
-                            <h4>Drew</h4>
-                            <p>{`${data.winrate.Drew}`}</p>
-                          </div>
-                        </div>
+                      <div style={{ gridColumn: "1/1", gridRow: "4/4" }}>
+                        <h3>Last Played</h3>
+                      </div>
+                      <div style={{ gridColumn: "2/2", gridRow: "1/1" }}>
+                        <h3>CS2</h3>
+                      </div>
+                      <div style={{ gridColumn: "2/2", gridRow: "2/2" }}>
+                        <p
+                          className={styles2.cs2Rank}
+                          style={{ backgroundImage: data.cs2.rankBackground }}
+                        >
+                          {data.cs2.rank}
+                        </p>
+                      </div>
+                      <div style={{ gridColumn: "2/2", gridRow: "3/3" }}>
+                        <p
+                          className={styles2.cs2Rank}
+                          style={{ backgroundImage: data.cs2.bestBackground }}
+                        >
+                          {data.cs2.best}
+                        </p>
+                      </div>
+                      <div style={{ gridColumn: "2/2", gridRow: "4/4" }}>
+                        <p>{data.cs2.lastPlayed}</p>
+                      </div>
+                      <div style={{ gridColumn: "3/3", gridRow: "1/1" }}>
+                        <h3>CS:GO</h3>
+                      </div>
+                      <div style={{ gridColumn: "3/3", gridRow: "2/2" }}>
+                        <img src={data.csgo.rank} />
+                      </div>
+                      <div style={{ gridColumn: "3/3", gridRow: "3/3" }}>
+                        <img src={data.csgo.best} />
+                      </div>
+                      <div style={{ gridColumn: "3/3", gridRow: "4/4" }}>
+                        <p>{data.csgo.lastPlayed}</p>
                       </div>
                     </div>
                   </div>
-                  <div id={styles2.profileBody}>
-                    <div id={styles2.stats}>
-                      <div className={styles2.statSection}>
-                        <h3>HS%: {`${data["hs%"]["hs%"]}`}</h3>
-                        <div id={styles2.hs} className={styles2.statRow}>
-                          <div>
-                            <h4>Kills</h4>
-                            <p>{`${data["hs%"].Kills}`}</p>
-                          </div>
-                          <div>
-                            <h4>Deaths</h4>
-                            <p>{`${data["hs%"].Deaths}`}</p>
-                          </div>
-                          <div>
-                            <h4>Assists</h4>
-                            <p>{`${data["hs%"].Assists}`}</p>
-                          </div>
-                          <div>
-                            <h4>Headshots</h4>
-                            <p>{`${data["hs%"].Headshots}`}</p>
-                          </div>
-                        </div>
+                  <div
+                    style={{
+                      height: "2px",
+                      backgroundColor: "var(--background-color2)",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                    }}
+                  />
+                  <div className={styles2.gameSelector}>
+                    <div>
+                      <button
+                        style={{
+                          backgroundColor: (() => {
+                            return selGame === "cs2"
+                              ? "#c4a402"
+                              : "var(--background-color2)";
+                          })(),
+                        }}
+                        onClick={() => {
+                          setSelGame("cs2");
+                        }}
+                      >
+                        CS2
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        style={{
+                          backgroundColor: (() => {
+                            return selGame === "csgo"
+                              ? "#c4a402"
+                              : "var(--background-color2)";
+                          })(),
+                        }}
+                        onClick={() => {
+                          setSelGame("csgo");
+                        }}
+                      >
+                        CS:GO
+                      </button>
+                    </div>
+                  </div>
+                  <div className={styles2.stats}>
+                    <h2 className={styles2.gameHeader}>
+                      {(() => {
+                        if (selGame === "cs2") return "CS2";
+                        else return "CS:GO";
+                      })()}{" "}
+                      Stats
+                    </h2>
+                    <div className={styles2.mainStats}>
+                      <div>
+                        <h3>Wins</h3>
+                        <p>{data[selGame].wins}</p>
                       </div>
-                      <div className={styles2.statSection}>
-                        <h3>ADR: {`${data.adr.adr}`}</h3>
-                        <div id={styles2.adr} className={styles2.statRow}>
-                          <div>
-                            <h4>Damage</h4>
-                            <p>{`${data.adr.Damage}`}</p>
-                          </div>
-                          <div>
-                            <h4>Rounds</h4>
-                            <p>{`${data.adr.Rounds}`}</p>
-                          </div>
-                        </div>
+                      <div>
+                        <h3>K/D</h3>
+                        <p>{data[selGame].inner.kpd}</p>
                       </div>
-                      <div className={styles2.statSection}>
-                        <h3>Clutch Success</h3>
-                        <div id={styles2.clutch} className={styles2.statRow}>
-                          <div className={styles2.cluchRate}>
-                            <h4>1v1</h4>
-                            <p>{`${data.clutch["1v1"]}`}</p>
-                          </div>
-                          <div className={styles2.cluchRate}>
-                            <h4>1v2</h4>
-                            <p>{`${data.clutch["1v2"]}`}</p>
-                          </div>
-                          <div className={styles2.cluchRate}>
-                            <h4>1v3</h4>
-                            <p>{`${data.clutch["1v3"]}`}</p>
-                          </div>
-                          <div className={styles2.cluchRate}>
-                            <h4>1v4</h4>
-                            <p>{`${data.clutch["1v4"]}`}</p>
-                          </div>
-                          <div className={styles2.cluchRate}>
-                            <h4>1v5</h4>
-                            <p>{`${data.clutch["1v5"]}`}</p>
-                          </div>
+                      <div>
+                        <h3>Rating</h3>
+                        <p>{data[selGame].inner.kpd}</p>
+                      </div>
+                    </div>
+                    <div className={styles2.boxedStats}>
+                      <div className={styles2.statsBox}>
+                        <h3>Win Rate: {data[selGame].inner.winRate.winRate}</h3>
+                        <p>Played: {data[selGame].inner.winRate.played}</p>
+                        <p>Won: {data[selGame].inner.winRate.won}</p>
+                        <p>Lost: {data[selGame].inner.winRate.lost}</p>
+                        <p>Tied: {data[selGame].inner.winRate.tied}</p>
+                      </div>
+                      <div className={styles2.statsBox}>
+                        <h3>HS%: {data[selGame].inner.hs.hs}</h3>
+                        <p>Kills: {data[selGame].inner.hs.kills}</p>
+                        <p>Deaths: {data[selGame].inner.hs.deaths}</p>
+                        <p>Assists: {data[selGame].inner.hs.assists}</p>
+                        <p>Headshots: {data[selGame].inner.hs.headshots}</p>
+                      </div>
+                      <div className={styles2.statsBox}>
+                        <h3>ADR: {data[selGame].inner.adr.adr}</h3>
+                        <p>Damage: {data[selGame].inner.adr.damage}</p>
+                        <p>Rounds: {data[selGame].inner.adr.rounds}</p>
+                      </div>
+                    </div>
+                    <div className={styles2.clutch}>
+                      <h2>
+                        Clutch Success: {data[selGame].inner.clutch.clutch}
+                      </h2>
+                      <div>
+                        <div>
+                          <h4>1v1</h4>
+                          <p>
+                            {
+                              data[selGame].inner.clutch.clutches["1"]
+                                .percentage
+                            }
+                          </p>
+                          <p>{data[selGame].inner.clutch.clutches["1"].raw}</p>
+                        </div>
+                        <div>
+                          <h4>1v2</h4>
+                          <p>
+                            {
+                              data[selGame].inner.clutch.clutches["2"]
+                                .percentage
+                            }
+                          </p>
+                          <p>{data[selGame].inner.clutch.clutches["2"].raw}</p>
+                        </div>
+                        <div>
+                          <h4>1v3</h4>
+                          <p>
+                            {
+                              data[selGame].inner.clutch.clutches["3"]
+                                .percentage
+                            }
+                          </p>
+                          <p>{data[selGame].inner.clutch.clutches["3"].raw}</p>
+                        </div>
+                        <div>
+                          <h4>1v4</h4>
+                          <p>
+                            {
+                              data[selGame].inner.clutch.clutches["4"]
+                                .percentage
+                            }
+                          </p>
+                          <p>{data[selGame].inner.clutch.clutches["4"].raw}</p>
+                        </div>
+                        <div>
+                          <h4>1v5</h4>
+                          <p>
+                            {
+                              data[selGame].inner.clutch.clutches["5"]
+                                .percentage
+                            }
+                          </p>
+                          <p>{data[selGame].inner.clutch.clutches["5"].raw}</p>
                         </div>
                       </div>
                     </div>
-                    <div>
-                      <div id={styles2.entry}>
-                        <h3>
-                          Entry Success | Per Round: {`${data.entry.overall}`}
-                        </h3>
-                        <div>
-                          <div
-                            style={{
-                              gridRow: "1/1",
-                              gridColumn: "2/2",
-                              color: "var(--text-color1)",
-                            }}
-                          >
-                            Combined
-                          </div>
-                          <div
-                            style={{
-                              gridRow: "1/1",
-                              gridColumn: "3/3",
-                              color: "var(--text-color1)",
-                            }}
-                          >
-                            T Entries
-                          </div>
-                          <div
-                            style={{
-                              gridRow: "1/1",
-                              gridColumn: "4/4",
-                              color: "var(--text-color1)",
-                            }}
-                          >
-                            CT Entries
-                          </div>
-
-                          <div
-                            style={{
-                              gridRow: "2/2",
-                              gridColumn: "1/1",
-                              color: "var(--text-color1)",
-                            }}
-                          >
-                            Success
-                          </div>
-                          <div
-                            style={{
-                              gridRow: "2/2",
-                              gridColumn: "2/2",
-                              color: "var(--text-color2)",
-                            }}
-                          >{`${data.entry.success[0]}`}</div>
-                          <div
-                            style={{
-                              gridRow: "2/2",
-                              gridColumn: "3/3",
-                              color: "#ee7752",
-                            }}
-                          >{`${data.entry.success[1]}`}</div>
-                          <div
-                            style={{
-                              gridRow: "2/2",
-                              gridColumn: "4/4",
-                              color: "#23a6d5",
-                            }}
-                          >{`${data.entry.success[2]}`}</div>
-
-                          <div
-                            style={{
-                              gridRow: "3/3",
-                              gridColumn: "1/1",
-                              color: "var(--text-color1)",
-                            }}
-                          >
-                            Attempts
-                          </div>
-                          <div
-                            style={{
-                              gridRow: "3/3",
-                              gridColumn: "2/2",
-                              color: "var(--text-color2)",
-                            }}
-                          >{`${data.entry.attempts[0]}`}</div>
-                          <div
-                            style={{
-                              gridRow: "3/3",
-                              gridColumn: "3/3",
-                              color: "#ee7752",
-                            }}
-                          >{`${data.entry.attempts[1]}`}</div>
-                          <div
-                            style={{
-                              gridRow: "3/3",
-                              gridColumn: "4/4",
-                              color: "#23a6d5",
-                            }}
-                          >{`${data.entry.attempts[2]}`}</div>
+                    <div className={styles2.entry}>
+                      <h2>
+                        Entry per Round: {data[selGame].inner.entry.entry}
+                      </h2>
+                      <div>
+                        <div style={{ gridColumn: "2/2", gridRow: "1/1" }}>
+                          Combined
                         </div>
-                      </div>
-                      <div id={styles2.played}>
-                        <h3>Most Played Maps</h3>
-                        <div>
-                          <div>
-                            <div>{`${data.played[0][0]}`}</div>
-                            <div>{`${data.played[0][1]}`}</div>
-                          </div>
-                          <div>
-                            <div>{`${data.played[1][0]}`}</div>
-                            <div>{`${data.played[1][1]}`}</div>
-                          </div>
-                          <div>
-                            <div>{`${data.played[2][0]}`}</div>
-                            <div>{`${data.played[2][1]}`}</div>
-                          </div>
-                          <div>
-                            <div>{`${data.played[3][0]}`}</div>
-                            <div>{`${data.played[3][1]}`}</div>
-                          </div>
+                        <div
+                          style={{
+                            gridColumn: "3/3",
+                            gridRow: "1/1",
+                            color: "orange",
+                          }}
+                        >
+                          T
+                        </div>
+                        <div
+                          style={{
+                            gridColumn: "4/4",
+                            gridRow: "1/1",
+                            color: "#6495ED",
+                          }}
+                        >
+                          CT
+                        </div>
+                        <div style={{ gridColumn: "1/1", gridRow: "2/2" }}>
+                          Success
+                        </div>
+                        <div style={{ gridColumn: "2/2", gridRow: "2/2" }}>
+                          {data[selGame].inner.entry.success.combined}
+                        </div>
+                        <div
+                          style={{
+                            gridColumn: "3/3",
+                            gridRow: "2/2",
+                            color: "orange",
+                          }}
+                        >
+                          {data[selGame].inner.entry.success.t}
+                        </div>
+                        <div
+                          style={{
+                            gridColumn: "4/4",
+                            gridRow: "2/2",
+                            color: "#6495ED",
+                          }}
+                        >
+                          {data[selGame].inner.entry.success.ct}
+                        </div>
+                        <div style={{ gridColumn: "1/1", gridRow: "3/3" }}>
+                          Attempts
+                        </div>
+                        <div
+                          style={{
+                            gridColumn: "2/2",
+                            gridRow: "3/3",
+                            color: "var(--text-color2)",
+                          }}
+                        >
+                          {data[selGame].inner.entry.attempts.combined}
+                        </div>
+                        <div
+                          style={{
+                            gridColumn: "3/3",
+                            gridRow: "3/3",
+                            color: "yellow",
+                          }}
+                        >
+                          {data[selGame].inner.entry.attempts.t}
+                        </div>
+                        <div
+                          style={{
+                            gridColumn: "4/4",
+                            gridRow: "3/3",
+                            color: "lightblue",
+                          }}
+                        >
+                          {data[selGame].inner.entry.attempts.ct}
                         </div>
                       </div>
                     </div>

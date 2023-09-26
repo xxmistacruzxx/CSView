@@ -8,11 +8,11 @@ export default function Footer() {
           <h2>
             <p>Powered by </p>{" "}
             <a
-              href="https://csgostats.gg/"
+              href="https://csstats.gg/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <mark>csgo</mark>
+              <mark>cs</mark>
               stats.gg
             </a>
           </h2>
