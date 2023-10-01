@@ -17,7 +17,7 @@ export default function Footer() {
             </a>
           </h2>
           <p>
-            csgostats.gg is a CS:GO stats viewing service developed by{" "}
+            csstats.gg is a CS stats viewing service developed by{" "}
             <a
               href="https://twitter.com/_rchh"
               target="_blank"
@@ -25,8 +25,8 @@ export default function Footer() {
             >
               rchh
             </a>{" "}
-            from ESL Gaming. CSView uses csgostats.gg to obtain data regarding
-            CS:GO user stats.
+            from ESL Gaming. CSView uses csstats.gg to obtain data regarding CS
+            user stats.
           </p>
         </div>
         <div className={styles.poweredSection} id={styles.hltv}>
@@ -42,8 +42,8 @@ export default function Footer() {
             </a>
           </h2>
           <p>
-            HLTV is a news and forum website that covers CS:GO eSports. CSView
-            uses HLTV to obtain data regarding CS:GO professional matches.
+            HLTV is a news and forum website that covers CS eSports. CSView uses
+            HLTV to obtain data regarding CS professional matches.
           </p>
         </div>
       </div>

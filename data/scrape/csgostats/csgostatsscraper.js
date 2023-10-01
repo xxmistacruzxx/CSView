@@ -8,8 +8,8 @@ export async function getStats(accNumber) {
     await browser.newPage(),
   ]);
   await Promise.all([
-    csgoPage.goto(`https://csstats.gg/player/${accNumber}`),
-    cs2Page.goto(`https://csstats.gg/player/${accNumber}/cs2`),
+    csgoPage.goto(`https://csstats.gg/player/${accNumber}/csgo`),
+    cs2Page.goto(`https://csstats.gg/player/${accNumber}`),
   ]);
   await Promise.all([
     csgoPage.setViewport({ width: 1080, height: 1024 }),
@@ -33,8 +33,18 @@ export async function getStats(accNumber) {
       await csgoPage.$("#other-profiles > .icon > a")
     );
 
-    data.cs2 = await getCs2Data(cs2Page);
-    data.csgo = await getCsgoData(csgoPage);
+    try {
+      data.cs2 = await getCs2Data(cs2Page);
+    } catch (e) {
+      data.cs2 = {};
+      data.cs2.error = e.toString();
+    }
+    try {
+      data.csgo = await getCsgoData(csgoPage);
+    } catch (e) {
+      data.csgo = {};
+      data.csgo.error = e.toString();
+    }
   } catch (e) {
     data = { ...data, error: e.toString() };
   } finally {
@@ -47,11 +57,19 @@ export async function getStats(accNumber) {
 
 async function getCsgoData(page) {
   let data = {};
-  data.lastPlayed = await getTextContent(
-    page,
-    await page.$("#csgo-rank > .icon")
-  );
-  data.wins = await getTextContent(page, await page.$("#csgo-rank > .wins"));
+  try {
+    data.lastPlayed = await getTextContent(
+      page,
+      await page.$("#csgo-rank > .icon")
+    );
+  } catch (e) {
+    data.lastPlayed = "N/A";
+  }
+  try {
+    data.wins = await getTextContent(page, await page.$("#csgo-rank > .wins"));
+  } catch (e) {
+    data.wins = "N/A";
+  }
   try {
     data.rank = await getSrc(page, await page.$("#csgo-rank > .rank > img"));
   } catch (e) {
@@ -63,18 +81,32 @@ async function getCsgoData(page) {
     data.best = data.rank;
   }
 
-  data.inner = await getInnerData(page);
+  try {
+    data.inner = await getInnerData(page);
+  } catch (e) {
+    data.error = e.toString();
+  }
 
   return data;
 }
 
 async function getCs2Data(page) {
   let data = {};
-  data.lastPlayed = await getTextContent(
-    page,
-    await page.$("#cs2-rank > .icon")
-  );
-  data.wins = await getTextContent(page, await page.$("#cs2-rank > .wins"));
+  try {
+    data.lastPlayed = await getTextContent(
+      page,
+      await page.$("#cs2-rank > .icon")
+    );
+  } catch (e) {
+    data.lastPlayed = "N/A";
+  }
+
+  try {
+    data.wins = await getTextContent(page, await page.$("#cs2-rank > .wins"));
+  } catch (e) {
+    data.wins = "N/A";
+  }
+
   data.rank = await getTextContent(
     page,
     await page.$("#cs2-rank > .rank > div > span")
@@ -100,7 +132,11 @@ async function getCs2Data(page) {
     data.bestBackground = data.rankBackground;
   }
 
-  data.inner = await getInnerData(page);
+  try {
+    data.inner = await getInnerData(page);
+  } catch (e) {
+    data.error = e.toString();
+  }
 
   return data;
 }

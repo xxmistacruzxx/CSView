@@ -13,7 +13,9 @@ export default function Home() {
         <Navbar />
         <div className={styles.bannerContainer}>
           <h2>CSView</h2>
-          <p>Your new, light-weight, and all-in-one CS:GO companion.</p>
+          <p>
+            Your new, light-weight, and all-in-one Counter-Strike companion.
+          </p>
           <div>
             <h2>Packed with amazing features...</h2>
             <div className={styles.featureBoxesContainer}>
@@ -100,7 +102,7 @@ export default function Home() {
             <div className={styles.featureContent}>
               <h2>Pro Match Monitoring</h2>
               <p>
-                Are you an avid viewer of professional CS:GO?
+                Are you an avid viewer of professional Counter-Strike?
                 <br />
                 Need a way to view to the upcoming matches?
                 <br />
@@ -118,7 +120,7 @@ export default function Home() {
             <div className={styles.featureContent}>
               <h2>Crosshair Repository</h2>
               <p>
-                Are you new to CS:GO?
+                Are you new to Counter-Strike?
                 <br />
                 Do you need a new crosshair?
                 <br />

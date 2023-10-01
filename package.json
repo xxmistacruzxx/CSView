@@ -13,6 +13,7 @@
     "next": "latest",
     "puppeteer": "^20.7.3",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "steamid": "^2.0.0"
   }
 }

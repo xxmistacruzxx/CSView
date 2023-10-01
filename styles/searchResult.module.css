@@ -107,6 +107,11 @@
   color: var(--text-color1);
   font-size: x-large;
   font-weight: bolder;
+  transition: 100ms;
+}
+
+.gameSelector > div > button:hover {
+  box-shadow: white 0px 0px 5px;
 }
 
 .gameHeader {
@@ -211,6 +216,23 @@
 
 .entry > div > div {
   text-align: center;
+}
+
+.searchFailure {
+  text-align: center;
+}
+
+.searchFailure > h3 {
+  color: var(--text-color1);
+}
+
+.searchFailure > p {
+  color: var(--text-color2);
+}
+
+.searchFailure > p > a {
+  color: var(--text-color2);
+  font-weight: bold;
 }
 
 @media screen and (max-width: 600px) {

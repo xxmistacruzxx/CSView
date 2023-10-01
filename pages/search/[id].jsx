@@ -1,30 +1,18 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import $ from "jquery";
 
 import styles from "~/styles/search.module.css";
 import styles2 from "~/styles/searchResult.module.css";
 import styles3 from "~/styles/error.module.css";
+
 import Navbar from "~/components/navbar/navbar.jsx";
 import Footer from "~/components/footer/footer.jsx";
+import SearchForm from "~/components/searchbar/searchform";
 import Loading from "~/components/loading/loading";
 
 // import { getStats } from "~/data/scrape/csgostats/csgostatsscraper";
 
 export default function Search(props) {
-  function onSearch(event) {
-    event.preventDefault();
-    let query = $("#searchInput").val();
-    let queryEdit = query.trim();
-    if (queryEdit === "") {
-      alert(`"${query}" is not a valid input.`);
-      return;
-    }
-    window.location.replace(
-      `${window.location.href.split("/")[0]}/search/${queryEdit}`
-    );
-  }
-
   // Search Result
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -47,33 +35,7 @@ export default function Search(props) {
     <main>
       <Navbar />
       <div id={styles.searchContainer}>
-        <form id={styles.searchForm} onSubmit={onSearch}>
-          <div
-            className={styles.inputContainer}
-            id={styles.searchInputContainer}
-          >
-            <label htmlFor="searchInput">Username/SteamID/URL</label>
-            <div id={styles.searchInput}>
-              <input
-                id="searchInput"
-                name="searchInput"
-                type="text"
-                placeholder="xxmistacruzxx"
-              ></input>
-            </div>
-          </div>
-          <div className={styles.inputContainer}>
-            <label htmlFor="searchButton">Search</label>
-            <div id={styles.searchButton}>
-              <input
-                id="searchButton"
-                name="searchButton"
-                type="submit"
-                value="GO"
-              ></input>
-            </div>
-          </div>
-        </form>
+        <SearchForm />
         <div id={styles2.searchResultContainer}>
           <div id={styles2.searchResult}>
             {(() => {
@@ -101,7 +63,7 @@ export default function Search(props) {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          csgostats
+                          csstats
                         </a>{" "}
                         given your search. Please make sure your input is
                         correct and try again.
@@ -217,189 +179,214 @@ export default function Search(props) {
                       </button>
                     </div>
                   </div>
-                  <div className={styles2.stats}>
-                    <h2 className={styles2.gameHeader}>
-                      {(() => {
-                        if (selGame === "cs2") return "CS2";
-                        else return "CS:GO";
-                      })()}{" "}
-                      Stats
-                    </h2>
-                    <div className={styles2.mainStats}>
-                      <div>
-                        <h3>Wins</h3>
-                        <p>{data[selGame].wins}</p>
-                      </div>
-                      <div>
-                        <h3>K/D</h3>
-                        <p>{data[selGame].inner.kpd}</p>
-                      </div>
-                      <div>
-                        <h3>Rating</h3>
-                        <p>{data[selGame].inner.kpd}</p>
-                      </div>
-                    </div>
-                    <div className={styles2.boxedStats}>
-                      <div className={styles2.statsBox}>
-                        <h3>Win Rate: {data[selGame].inner.winRate.winRate}</h3>
-                        <p>Played: {data[selGame].inner.winRate.played}</p>
-                        <p>Won: {data[selGame].inner.winRate.won}</p>
-                        <p>Lost: {data[selGame].inner.winRate.lost}</p>
-                        <p>Tied: {data[selGame].inner.winRate.tied}</p>
-                      </div>
-                      <div className={styles2.statsBox}>
-                        <h3>HS%: {data[selGame].inner.hs.hs}</h3>
-                        <p>Kills: {data[selGame].inner.hs.kills}</p>
-                        <p>Deaths: {data[selGame].inner.hs.deaths}</p>
-                        <p>Assists: {data[selGame].inner.hs.assists}</p>
-                        <p>Headshots: {data[selGame].inner.hs.headshots}</p>
-                      </div>
-                      <div className={styles2.statsBox}>
-                        <h3>ADR: {data[selGame].inner.adr.adr}</h3>
-                        <p>Damage: {data[selGame].inner.adr.damage}</p>
-                        <p>Rounds: {data[selGame].inner.adr.rounds}</p>
-                      </div>
-                    </div>
-                    <div className={styles2.clutch}>
-                      <h2>
-                        Clutch Success: {data[selGame].inner.clutch.clutch}
+                  {!data[selGame].error ? (
+                    <div className={styles2.stats}>
+                      <h2 className={styles2.gameHeader}>
+                        {(() => {
+                          if (selGame === "cs2") return "CS2";
+                          else return "CS:GO";
+                        })()}{" "}
+                        Stats
                       </h2>
-                      <div>
+                      <div className={styles2.mainStats}>
                         <div>
-                          <h4>1v1</h4>
-                          <p>
-                            {
-                              data[selGame].inner.clutch.clutches["1"]
-                                .percentage
-                            }
-                          </p>
-                          <p>{data[selGame].inner.clutch.clutches["1"].raw}</p>
+                          <h3>Wins</h3>
+                          <p>{data[selGame].wins}</p>
                         </div>
                         <div>
-                          <h4>1v2</h4>
-                          <p>
-                            {
-                              data[selGame].inner.clutch.clutches["2"]
-                                .percentage
-                            }
-                          </p>
-                          <p>{data[selGame].inner.clutch.clutches["2"].raw}</p>
+                          <h3>K/D</h3>
+                          <p>{data[selGame].inner.kpd}</p>
                         </div>
                         <div>
-                          <h4>1v3</h4>
-                          <p>
-                            {
-                              data[selGame].inner.clutch.clutches["3"]
-                                .percentage
-                            }
-                          </p>
-                          <p>{data[selGame].inner.clutch.clutches["3"].raw}</p>
+                          <h3>Rating</h3>
+                          <p>{data[selGame].inner.kpd}</p>
                         </div>
-                        <div>
-                          <h4>1v4</h4>
-                          <p>
-                            {
-                              data[selGame].inner.clutch.clutches["4"]
-                                .percentage
-                            }
-                          </p>
-                          <p>{data[selGame].inner.clutch.clutches["4"].raw}</p>
+                      </div>
+                      <div className={styles2.boxedStats}>
+                        <div className={styles2.statsBox}>
+                          <h3>
+                            Win Rate: {data[selGame].inner.winRate.winRate}
+                          </h3>
+                          <p>Played: {data[selGame].inner.winRate.played}</p>
+                          <p>Won: {data[selGame].inner.winRate.won}</p>
+                          <p>Lost: {data[selGame].inner.winRate.lost}</p>
+                          <p>Tied: {data[selGame].inner.winRate.tied}</p>
                         </div>
+                        <div className={styles2.statsBox}>
+                          <h3>HS%: {data[selGame].inner.hs.hs}</h3>
+                          <p>Kills: {data[selGame].inner.hs.kills}</p>
+                          <p>Deaths: {data[selGame].inner.hs.deaths}</p>
+                          <p>Assists: {data[selGame].inner.hs.assists}</p>
+                          <p>Headshots: {data[selGame].inner.hs.headshots}</p>
+                        </div>
+                        <div className={styles2.statsBox}>
+                          <h3>ADR: {data[selGame].inner.adr.adr}</h3>
+                          <p>Damage: {data[selGame].inner.adr.damage}</p>
+                          <p>Rounds: {data[selGame].inner.adr.rounds}</p>
+                        </div>
+                      </div>
+                      <div className={styles2.clutch}>
+                        <h2>
+                          Clutch Success: {data[selGame].inner.clutch.clutch}
+                        </h2>
                         <div>
-                          <h4>1v5</h4>
-                          <p>
-                            {
-                              data[selGame].inner.clutch.clutches["5"]
-                                .percentage
-                            }
-                          </p>
-                          <p>{data[selGame].inner.clutch.clutches["5"].raw}</p>
+                          <div>
+                            <h4>1v1</h4>
+                            <p>
+                              {
+                                data[selGame].inner.clutch.clutches["1"]
+                                  .percentage
+                              }
+                            </p>
+                            <p>
+                              {data[selGame].inner.clutch.clutches["1"].raw}
+                            </p>
+                          </div>
+                          <div>
+                            <h4>1v2</h4>
+                            <p>
+                              {
+                                data[selGame].inner.clutch.clutches["2"]
+                                  .percentage
+                              }
+                            </p>
+                            <p>
+                              {data[selGame].inner.clutch.clutches["2"].raw}
+                            </p>
+                          </div>
+                          <div>
+                            <h4>1v3</h4>
+                            <p>
+                              {
+                                data[selGame].inner.clutch.clutches["3"]
+                                  .percentage
+                              }
+                            </p>
+                            <p>
+                              {data[selGame].inner.clutch.clutches["3"].raw}
+                            </p>
+                          </div>
+                          <div>
+                            <h4>1v4</h4>
+                            <p>
+                              {
+                                data[selGame].inner.clutch.clutches["4"]
+                                  .percentage
+                              }
+                            </p>
+                            <p>
+                              {data[selGame].inner.clutch.clutches["4"].raw}
+                            </p>
+                          </div>
+                          <div>
+                            <h4>1v5</h4>
+                            <p>
+                              {
+                                data[selGame].inner.clutch.clutches["5"]
+                                  .percentage
+                              }
+                            </p>
+                            <p>
+                              {data[selGame].inner.clutch.clutches["5"].raw}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles2.entry}>
+                        <h2>
+                          Entry per Round: {data[selGame].inner.entry.entry}
+                        </h2>
+                        <div>
+                          <div style={{ gridColumn: "2/2", gridRow: "1/1" }}>
+                            Combined
+                          </div>
+                          <div
+                            style={{
+                              gridColumn: "3/3",
+                              gridRow: "1/1",
+                              color: "orange",
+                            }}
+                          >
+                            T
+                          </div>
+                          <div
+                            style={{
+                              gridColumn: "4/4",
+                              gridRow: "1/1",
+                              color: "#6495ED",
+                            }}
+                          >
+                            CT
+                          </div>
+                          <div style={{ gridColumn: "1/1", gridRow: "2/2" }}>
+                            Success
+                          </div>
+                          <div style={{ gridColumn: "2/2", gridRow: "2/2" }}>
+                            {data[selGame].inner.entry.success.combined}
+                          </div>
+                          <div
+                            style={{
+                              gridColumn: "3/3",
+                              gridRow: "2/2",
+                              color: "orange",
+                            }}
+                          >
+                            {data[selGame].inner.entry.success.t}
+                          </div>
+                          <div
+                            style={{
+                              gridColumn: "4/4",
+                              gridRow: "2/2",
+                              color: "#6495ED",
+                            }}
+                          >
+                            {data[selGame].inner.entry.success.ct}
+                          </div>
+                          <div style={{ gridColumn: "1/1", gridRow: "3/3" }}>
+                            Attempts
+                          </div>
+                          <div
+                            style={{
+                              gridColumn: "2/2",
+                              gridRow: "3/3",
+                              color: "var(--text-color2)",
+                            }}
+                          >
+                            {data[selGame].inner.entry.attempts.combined}
+                          </div>
+                          <div
+                            style={{
+                              gridColumn: "3/3",
+                              gridRow: "3/3",
+                              color: "yellow",
+                            }}
+                          >
+                            {data[selGame].inner.entry.attempts.t}
+                          </div>
+                          <div
+                            style={{
+                              gridColumn: "4/4",
+                              gridRow: "3/3",
+                              color: "lightblue",
+                            }}
+                          >
+                            {data[selGame].inner.entry.attempts.ct}
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className={styles2.entry}>
-                      <h2>
-                        Entry per Round: {data[selGame].inner.entry.entry}
-                      </h2>
-                      <div>
-                        <div style={{ gridColumn: "2/2", gridRow: "1/1" }}>
-                          Combined
-                        </div>
-                        <div
-                          style={{
-                            gridColumn: "3/3",
-                            gridRow: "1/1",
-                            color: "orange",
-                          }}
-                        >
-                          T
-                        </div>
-                        <div
-                          style={{
-                            gridColumn: "4/4",
-                            gridRow: "1/1",
-                            color: "#6495ED",
-                          }}
-                        >
-                          CT
-                        </div>
-                        <div style={{ gridColumn: "1/1", gridRow: "2/2" }}>
-                          Success
-                        </div>
-                        <div style={{ gridColumn: "2/2", gridRow: "2/2" }}>
-                          {data[selGame].inner.entry.success.combined}
-                        </div>
-                        <div
-                          style={{
-                            gridColumn: "3/3",
-                            gridRow: "2/2",
-                            color: "orange",
-                          }}
-                        >
-                          {data[selGame].inner.entry.success.t}
-                        </div>
-                        <div
-                          style={{
-                            gridColumn: "4/4",
-                            gridRow: "2/2",
-                            color: "#6495ED",
-                          }}
-                        >
-                          {data[selGame].inner.entry.success.ct}
-                        </div>
-                        <div style={{ gridColumn: "1/1", gridRow: "3/3" }}>
-                          Attempts
-                        </div>
-                        <div
-                          style={{
-                            gridColumn: "2/2",
-                            gridRow: "3/3",
-                            color: "var(--text-color2)",
-                          }}
-                        >
-                          {data[selGame].inner.entry.attempts.combined}
-                        </div>
-                        <div
-                          style={{
-                            gridColumn: "3/3",
-                            gridRow: "3/3",
-                            color: "yellow",
-                          }}
-                        >
-                          {data[selGame].inner.entry.attempts.t}
-                        </div>
-                        <div
-                          style={{
-                            gridColumn: "4/4",
-                            gridRow: "3/3",
-                            color: "lightblue",
-                          }}
-                        >
-                          {data[selGame].inner.entry.attempts.ct}
-                        </div>
-                      </div>
+                  ) : (
+                    <div className={styles2.searchFailure}>
+                      <h3>Unable to obtain {selGame} info.</h3>
+                      <p>
+                        Click{" "}
+                        <a href={`https://csstats.gg/player/${props.id}`}>
+                          here
+                        </a>{" "}
+                        for more info.
+                      </p>
                     </div>
-                  </div>
+                  )}
                 </>
               );
             })()}
