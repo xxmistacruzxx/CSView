@@ -1,0 +1,107 @@
+.player {
+  background-color: var(--background-color3);
+  padding: 5px;
+}
+
+.playerInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.playerInfo * {
+  margin: 0px;
+}
+
+.playerInfo img {
+  border: solid 2px var(--background-color2);
+  width: 100%;
+}
+
+.playerInfo > a {
+  text-decoration: none;
+}
+
+.playerInfo h3 {
+  color: var(--text-color1);
+}
+
+.playerInfo p {
+  color: var(--text-color3);
+}
+
+.ranks {
+  display: grid;
+  grid-template-columns: repeat(2, 49%);
+  grid-gap: 2%;
+}
+
+.rank {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.rank > h4 {
+  color: var(--text-color2);
+  margin: 0px;
+}
+
+.rank > p {
+  color: var(--text-color3);
+  margin: 0px;
+}
+
+.rank > div {
+  width: 100%;
+  background-size: cover;
+}
+
+.rank > div > p {
+  margin: 0px;
+  font-size: x-large;
+  color: var(--text-color2);
+  text-align: center;
+}
+
+.rank > div > img {
+  width: 100%;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat h4 {
+  color: var(--text-color1);
+  margin: 0px;
+}
+
+.stat h5 {
+  color: var(--text-color2);
+  margin: 0px;
+  text-align: center;
+}
+
+.stat p {
+  color: var(--text-color3);
+  margin: 0px;
+  text-align: center;
+}
+
+.stat > div {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+
+.stat > div > div {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}

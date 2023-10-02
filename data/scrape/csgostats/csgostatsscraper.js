@@ -65,15 +65,17 @@ async function getCsgoData(page) {
   } catch (e) {
     data.lastPlayed = "N/A";
   }
+  data.lastPlayed = data.lastPlayed !== "" ? data.lastPlayed : "N/A";
   try {
     data.wins = await getTextContent(page, await page.$("#csgo-rank > .wins"));
   } catch (e) {
     data.wins = "N/A";
   }
+  data.wins = data.wins !== "" ? data.wins : "N/A";
   try {
     data.rank = await getSrc(page, await page.$("#csgo-rank > .rank > img"));
   } catch (e) {
-    data.rank = "https://static.csstats.gg/images/ranks/0.png";
+    data.rank = "/images/unranked.png";
   }
   try {
     data.best = await getSrc(page, await page.$("#csgo-rank > .best > img"));
@@ -100,21 +102,38 @@ async function getCs2Data(page) {
   } catch (e) {
     data.lastPlayed = "N/A";
   }
+  data.lastPlayed = data.lastPlayed !== "" ? data.lastPlayed : "N/A";
 
   try {
     data.wins = await getTextContent(page, await page.$("#cs2-rank > .wins"));
   } catch (e) {
     data.wins = "N/A";
   }
+  data.wins = data.wins !== "" ? data.wins : "N/A";
 
-  data.rank = await getTextContent(
-    page,
-    await page.$("#cs2-rank > .rank > div > span")
-  );
-  data.rankBackground = await getBackgroundImage(
-    page,
-    await page.$("#cs2-rank > .rank > div")
-  );
+  try {
+    data.rank = await getTextContent(
+      page,
+      await page.$("#cs2-rank > .rank > div > span")
+    );
+  } catch (e) {
+    data.rank = "---";
+  }
+  data.rank = data.rank !== "" ? data.rank : "---";
+
+  try {
+    data.rankBackground = await getBackgroundImage(
+      page,
+      await page.$("#cs2-rank > .rank > div")
+    );
+  } catch (e) {
+    data.rankBackground = `url("/images/defaultrating.png")`;
+  }
+  data.rankBackground =
+    data.rankBackground !== ""
+      ? data.rankBackground
+      : `url("/images/defaultrating.png")`;
+
   try {
     data.best = await getTextContent(
       page,
@@ -143,14 +162,85 @@ async function getCs2Data(page) {
 
 async function getInnerData(page) {
   let data = {};
-  data.kpd = await getTextContent(page, await page.$("#kpd > span"));
-  data.rating = await getTextContent(page, await page.$("#rating > span"));
+  try {
+    data.kpd = await getTextContent(page, await page.$("#kpd > span"));
+  } catch (e) {
+    data.kpd = "N/A";
+  }
+  try {
+    data.rating = await getTextContent(page, await page.$("#rating > span"));
+  } catch (e) {
+    data.rating = "N/A";
+  }
 
-  data.winRate = await getWinRatePanel(page);
-  data.hs = await getHSPanel(page);
-  data.adr = await getADRPanel(page);
-  data.clutch = await getClutchPanel(page);
-  data.entry = await getEntryPanel(page);
+  try {
+    data.winRate = await getWinRatePanel(page);
+  } catch (e) {
+    data.winRate = {};
+    data.winRate.winRate = "N/A";
+    data.winRate.played = "N/A";
+    data.winRate.won = "N/A";
+    data.winRate.lost = "N/A";
+    data.winRate.tied = "N/A";
+  }
+
+  try {
+    data.hs = await getHSPanel(page);
+  } catch (e) {
+    data.hs = {};
+    data.hs.hs = "N/A";
+    data.hs.headshots = "N/A";
+    data.hs.kills = "N/A";
+    data.hs.assists = "N/A";
+    data.hs.deaths = "N/A";
+  }
+
+  try {
+    data.adr = await getADRPanel(page);
+  } catch (e) {
+    data.adr = {};
+    data.adr.adr = "N/A";
+    data.adr.damage = "N/A";
+    data.adr.rounds = "N/A";
+  }
+
+  try {
+    data.clutch = await getClutchPanel(page);
+  } catch (e) {
+    data.clutch = {};
+    data.clutch.clutch = "N/A";
+    data.clutch.clutches = {};
+    data.clutch.clutches[`1`] = {};
+    data.clutch.clutches[`2`] = {};
+    data.clutch.clutches[`3`] = {};
+    data.clutch.clutches[`4`] = {};
+    data.clutch.clutches[`5`] = {};
+    data.clutch.clutches[`1`].percentage = "N/A";
+    data.clutch.clutches[`2`].percentage = "N/A";
+    data.clutch.clutches[`3`].percentage = "N/A";
+    data.clutch.clutches[`4`].percentage = "N/A";
+    data.clutch.clutches[`5`].percentage = "N/A";
+    data.clutch.clutches[`1`].raw = "N/A";
+    data.clutch.clutches[`2`].raw = "N/A";
+    data.clutch.clutches[`3`].raw = "N/A";
+    data.clutch.clutches[`4`].raw = "N/A";
+    data.clutch.clutches[`5`].raw = "N/A";
+  }
+
+  try {
+    data.entry = await getEntryPanel(page);
+  } catch (e) {
+    data.entry = {};
+    data.entry.entry = "N/A";
+    data.entry.attempts = {};
+    data.entry.attempts.combined = "N/A";
+    data.entry.attempts.t = "N/A";
+    data.entry.attempts.ct = "N/A";
+    data.entry.success = {};
+    data.entry.success.combined = "N/A";
+    data.entry.success.t = "N/A";
+    data.entry.success.ct = "N/A";
+  }
 
   return data;
 }
